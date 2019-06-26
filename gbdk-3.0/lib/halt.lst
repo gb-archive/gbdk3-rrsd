@@ -1,0 +1,18 @@
+                              1 	.area	_CODE
+                              2 
+   0000                       3 _halt::
+   0000 76                    4 	HALT
+   0001 00                    5 	NOP     ; HALT sometimes skips the next instruction?
+   0002 C9                    6 	RET
+                              7 
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+  0 _halt                                                          0000 GR
+
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                                                          size    3   flags 0

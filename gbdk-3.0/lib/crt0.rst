@@ -1,0 +1,1055 @@
+                              1 	.include	"global.s"
+                    0001      1 	.NEAR_CALLS = 1
+                              2 	;; Changed by astorgb.pl to 1
+                    0000      3 	__RGBDS__	= 0
+                              4 
+                              5 	;;  Screen dimensions 
+                    0013      6 	.MAXCURSPOSX	= 0x13	; In tiles
+                    0011      7 	.MAXCURSPOSY	= 0x11
+                              8 
+                    0080      9 	.START		= 0x80
+                    0040     10 	.SELECT		= 0x40
+                    0020     11 	.B		= 0x20
+                    0010     12 	.A		= 0x10
+                    0008     13 	.DOWN		= 0x08
+                    0004     14 	.UP		= 0x04
+                    0002     15 	.LEFT		= 0x02
+                    0001     16 	.RIGHT		= 0x01
+                             17 
+                    00A0     18 	.SCREENWIDTH	= 0xA0
+                    0090     19 	.SCREENHEIGHT	= 0x90
+                    0007     20 	.MINWNDPOSX	= 0x07
+                    0000     21 	.MINWNDPOSY	= 0x00
+                    00A6     22 	.MAXWNDPOSX	= 0xA6
+                    008F     23 	.MAXWNDPOSY	= 0x8F
+                             24 
+                    0001     25 	.VBL_IFLAG	= 0x01
+                    0002     26 	.LCD_IFLAG	= 0x02
+                    0004     27 	.TIM_IFLAG	= 0x04
+                    0008     28 	.SIO_IFLAG	= 0x08
+                    0010     29 	.JOY_IFLAG	= 0x10
+                             30  
+                    0000     31 	.P1		= 0x00	; Joystick: 1.1.P15.P14.P13.P12.P11.P10
+                    0001     32 	.SB		= 0x01	; Serial IO data buffer
+                    0002     33 	.SC		= 0x02	; Serial IO control register
+                    0004     34 	.DIV		= 0x04	; Divider register
+                    0005     35 	.TIMA		= 0x05	; Timer counter
+                    0006     36 	.TMA		= 0x06	; Timer modulo
+                    0007     37 	.TAC		= 0x07	; Timer control
+                    000F     38 	.IF		= 0x0F	; Interrupt flags: 0.0.0.JST.SIO.TIM.LCD.VBL
+                    0010     39 	.NR10		= 0x10	; Sound register
+                    0011     40 	.NR11		= 0x11	; Sound register
+                    0012     41 	.NR12		= 0x12	; Sound register
+                    0013     42 	.NR13		= 0x13	; Sound register
+                    0014     43 	.NR14		= 0x14	; Sound register
+                    0016     44 	.NR21		= 0x16	; Sound register
+                    0017     45 	.NR22		= 0x17	; Sound register
+                    0018     46 	.NR23		= 0x18	; Sound register
+                    0019     47 	.NR24		= 0x19	; Sound register
+                    001A     48 	.NR30		= 0x1A	; Sound register
+                    001B     49 	.NR31		= 0x1B	; Sound register
+                    001C     50 	.NR32		= 0x1C	; Sound register
+                    001D     51 	.NR33		= 0x1D	; Sound register
+                    001E     52 	.NR34		= 0x1E	; Sound register
+                    0020     53 	.NR41		= 0x20	; Sound register
+                    0021     54 	.NR42		= 0x21	; Sound register
+                    0022     55 	.NR43		= 0x22	; Sound register
+                    0023     56 	.NR44		= 0x23	; Sound register
+                    0024     57 	.NR50		= 0x24	; Sound register
+                    0025     58 	.NR51		= 0x25	; Sound register
+                    0026     59 	.NR52		= 0x26	; Sound register
+                    0040     60 	.LCDC		= 0x40	; LCD control
+                    0041     61 	.STAT		= 0x41	; LCD status
+                    0042     62 	.SCY		= 0x42	; Scroll Y
+                    0043     63 	.SCX		= 0x43	; Scroll X
+                    0044     64 	.LY		= 0x44	; LCDC Y-coordinate
+                    0045     65 	.LYC		= 0x45	; LY compare
+                    0046     66 	.DMA		= 0x46	; DMA transfer
+                    0047     67 	.BGP		= 0x47	; BG palette data
+                    0048     68 	.OBP0		= 0x48	; OBJ palette 0 data
+                    0049     69 	.OBP1		= 0x49	; OBJ palette 1 data
+                    004A     70 	.WY		= 0x4A	; Window Y coordinate
+                    004B     71 	.WX		= 0x4B	; Window X coordinate
+                    004D     72 	.KEY1		= 0x4D	; CPU speed
+                    004F     73 	.VBK		= 0x4F	; VRAM bank
+                    0051     74 	.HDMA1		= 0x51	; DMA control 1
+                    0052     75 	.HDMA2		= 0x52	; DMA control 2
+                    0053     76 	.HDMA3		= 0x53	; DMA control 3
+                    0054     77 	.HDMA4		= 0x54	; DMA control 4
+                    0055     78 	.HDMA5		= 0x55	; DMA control 5
+                    0056     79 	.RP		= 0x56	; IR port
+                    0068     80 	.BCPS		= 0x68	; BG color palette specification
+                    0069     81 	.BCPD		= 0x69	; BG color palette data
+                    006A     82 	.OCPS		= 0x6A	; OBJ color palette specification
+                    006B     83 	.OCPD		= 0x6B	; OBJ color palette data
+                    0070     84 	.SVBK		= 0x70	; WRAM bank
+                    00FF     85 	.IE		= 0xFF	; Interrupt enable
+                             86 
+                    0001     87 	.G_MODE		= 0x01	; Graphic mode
+                    0002     88 	.T_MODE		= 0x02	; Text mode (bit 2)
+                    0002     89 	.T_MODE_OUT	= 0x02	; Text mode output only
+                    0003     90 	.T_MODE_INOUT	= 0x03	; Text mode with input
+                    0004     91 	.M_NO_SCROLL	= 0x04	; Disables scrolling of the screen in text mode
+                    0008     92 	.M_NO_INTERP	= 0x08	; Disables special character interpretation
+                             93 
+                             94 	
+                             95 	;; Status codes for IO
+                    0000     96 	.IO_IDLE	= 0x00
+                    0001     97 	.IO_SENDING	= 0x01
+                    0002     98 	.IO_RECEIVING	= 0x02
+                    0004     99 	.IO_ERROR	= 0x04
+                            100 
+                            101 	;; Type of IO data
+                    0066    102 	.DT_IDLE	= 0x66
+                    0055    103 	.DT_RECEIVING	= 0x55
+                            104 
+                            105 	;; Table of routines for modes
+                            106 	;.MODE_TABLE	= 0x01E0
+                    01E2    107     .MODE_TABLE	= 0x01E2
+                            108     
+                            109 	;; C related
+                            110 	;; Overheap of a banked call.  Used for parameters
+                            111 	;;  = ret + real ret + bank
+                            112 
+                    0001    113 	.if .NEAR_CALLS
+                    0002    114 	.BANKOV		= 2
+                            115 	.else
+                            116 	.BANKOV		= 6
+                            117 	.endif
+                            118 	
+                            119 	.globl	banked_call
+                            120 	.globl	banked_ret
+                            121 	
+                            122 	;; Global variables
+                            123 	.globl	.mode
+                            124 	.globl	__io_out
+                            125 	.globl	__io_in
+                            126 	.globl	__io_status
+                            127 
+                            128 	;; Global routines
+                            129 	.globl	.display_off
+                            130 	.globl	.wait_vbl_done
+                            131 
+                            132 	;; Interrupt routines 
+                            133 	.globl	.add_VBL
+                            134 	.globl	.add_LCD
+                            135 	.globl	.add_TIM
+                            136 	.globl	.add_SIO
+                            137 	.globl	.add_JOY
+                            138 
+                            139 	;; Symbols defined at link time
+                            140 	.globl	.STACK
+                            141 	.globl	.OAM
+                            142 	.globl	.refresh_OAM
+                            143 
+                            144 	;; Main user routine	
+                            145 	.globl	_main
+                              2 
+                              3 	;; ****************************************
+                              4 	;; Beginning of module
+                              5 	;; BANKED: checked
+                              6 	.title	"Runtime"
+                              7 	.module	Runtime
+                              8 	
+                              9 	;; ****************************************
+                             10 	;; Ordering of segments for the linker
+                             11 	;; Code that really needs to be in bank 0
+                             12 	.area	_HEADER (ABS)
+                             13 	;; locaton for Standard header for the GB
+   0000                      14 	.org	0x00
+                             15 	.area	_CODE
+                             16 	.area	_BASE
+                             17 	;; Code
+                             18 	.area	_CODE
+                             19 	;; Constant data
+                             20 	.area	_LIT
+                             21 	;; Initialised in ram data
+                             22 	;; Constant data used to init _DATA
+                             23 	.area   _CODE_1
+                             24 	.area	_GSINIT
+                             25 	.area	_GSINITTAIL
+                             26 	.area	_GSFINAL
+                             27 	.area	_DATA
+                             28 	;; Uninitialised ram data
+                             29 	.area	_BSS
+                             30 	;; For malloc
+                             31 	.area	_HEAP
+                             32 
+                             33 	.area	_HEADER (ABS)
+                             34 
+                             35 	;; Standard header for the GB
+                             36 ;	.org	0x00
+   0000 C9                   37 	RET			; Empty function (default for interrupts)
+                             38 
+   0010                      39 	.org	0x10
+   0010 80 40 20 10 08 04    40 	.byte	0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01
+        02 01
+   0018 01 02 04 08 10 20    41 	.byte	0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80
+        40 80
+                             42 
+                             43 	;; Interrupt vectors
+   0040                      44 	.org	0x40		; VBL
+   0040                      45 .int_VBL:
+   0040 E5                   46 	PUSH	HL
+   0041 21 8D C5             47 	LD	HL,#.int_0x40
+   0044 C3 67 00             48 	JP	.int
+                             49 
+   0048                      50 	.org	0x48		; LCD
+   0048                      51 .int_LCD:
+   0048 E5                   52 	PUSH	HL
+   0049 21 9D C5             53 	LD	HL,#.int_0x48
+   004C C3 67 00             54 	JP	.int
+                             55 
+   0050                      56 	.org	0x50		; TIM
+   0050                      57 .int_TIM:
+   0050 E5                   58 	PUSH	HL
+   0051 21 AD C5             59 	LD	HL,#.int_0x50
+   0054 C3 67 00             60 	JP	.int
+                             61 
+   0058                      62 	.org	0x58		; SIO
+   0058                      63 .int_SIO:
+   0058 E5                   64 	PUSH	HL
+   0059 21 BD C5             65 	LD	HL,#.int_0x58
+   005C C3 67 00             66 	JP	.int
+                             67 
+   0060                      68 	.org	0x60		; JOY
+   0060                      69 .int_JOY:
+   0060 E5                   70 	PUSH	HL
+   0061 21 CD C5             71 	LD	HL,#.int_0x60
+   0064 C3 67 00             72 	JP	.int
+                             73 
+   0067                      74 .int:
+   0067 F5                   75 	PUSH	AF
+   0068 C5                   76 	PUSH	BC
+   0069 D5                   77 	PUSH	DE
+                             78 	; increment the depth of the interrupt counter
+   006A FA 8A C5             79     LD  A, (__ei_depth)
+   006D 3C                   80     INC A
+   006E EA 8A C5             81     LD  (__ei_depth), A
+   0071                      82 1$:
+   0071 2A                   83 	LD	A,(HL+)
+   0072 B6                   84 	OR	(HL)
+   0073 28 0B                85 	JR	Z,2$
+   0075 E5                   86 	PUSH	HL
+   0076 3A                   87 	LD	A,(HL-)
+   0077 6E                   88 	LD	L,(HL)
+   0078 67                   89 	LD	H,A
+   0079 CD 93 00             90 	CALL	3$
+   007C E1                   91 	POP	HL
+   007D 23                   92 	INC	HL
+   007E 18 F1                93 	JR	1$
+   0080                      94 2$:
+   0080 FA 8A C5             95     LD  A, (__ei_depth)
+   0083 3D                   96     DEC A
+   0084 EA 8A C5             97     LD  (__ei_depth), A
+   0087 28 05                98     JR  Z, 4$
+   0089 D1                   99 	POP	DE
+   008A C1                  100 	POP	BC
+   008B F1                  101 	POP	AF
+   008C E1                  102 	POP	HL
+   008D C9                  103 	RET
+   008E                     104 4$:
+   008E D1                  105 	POP	DE
+   008F C1                  106 	POP	BC
+   0090 F1                  107 	POP	AF
+   0091 E1                  108 	POP	HL
+   0092 D9                  109 	RETI
+   0093                     110 3$:
+   0093 E9                  111 	JP	(HL)
+                            112 
+                            113 	;; GameBoy Header
+                            114 
+                            115 	;; DO NOT CHANGE...
+   0100                     116 	.org	0x100
+   0100                     117 .header:
+   0100 00                  118 	NOP
+   0101 C3 50 01            119 	JP	0x150
+   0104 CE ED 66 66         120 	.byte	0xCE,0xED,0x66,0x66
+   0108 CC 0D 00 0B         121 	.byte	0xCC,0x0D,0x00,0x0B
+   010C 03 73 00 83         122 	.byte	0x03,0x73,0x00,0x83
+   0110 00 0C 00 0D         123 	.byte	0x00,0x0C,0x00,0x0D
+   0114 00 08 11 1F         124 	.byte	0x00,0x08,0x11,0x1F
+   0118 88 89 00 0E         125 	.byte	0x88,0x89,0x00,0x0E
+   011C DC CC 6E E6         126 	.byte	0xDC,0xCC,0x6E,0xE6
+   0120 DD DD D9 99         127 	.byte	0xDD,0xDD,0xD9,0x99
+   0124 BB BB 67 63         128 	.byte	0xBB,0xBB,0x67,0x63
+   0128 6E 0E EC CC         129 	.byte	0x6E,0x0E,0xEC,0xCC
+   012C DD DC 99 9F         130 	.byte	0xDD,0xDC,0x99,0x9F
+   0130 BB B9 33 3E         131 	.byte	0xBB,0xB9,0x33,0x3E
+                            132 
+                            133 	;; Title of the game
+   0134                     134 	.org	0x134
+   0134 54 69 74 6C 65 00   135 	.asciz	"Title"
+                            136 
+   0144                     137 	.org	0x144
+   0144 00 00 00            138 	.byte	0,0,0
+                            139 
+                            140 	;; Cartridge type is ROM only
+   0147                     141 	.org	0x147
+   0147 00                  142 	.byte	0
+                            143 
+                            144 	;; ROM size is 32kB
+   0148                     145 	.org	0x148
+   0148 00                  146 	.byte	0
+                            147 
+                            148 	;; RAM size is 0kB
+   0149                     149 	.org	0x149
+   0149 00                  150 	.byte	0
+                            151 
+                            152 	;; Maker ID
+   014A                     153 	.org	0x14A
+   014A 00 00               154 	.byte	0x00,0x00
+                            155 
+                            156 	;; Version number
+   014C                     157 	.org	0x14C
+   014C 01                  158 	.byte	0x01
+                            159 
+                            160 	;; Complement check
+   014D                     161 	.org	0x14D
+   014D 00                  162 	.byte	0x00
+                            163 
+                            164 	;; Checksum
+   014E                     165 	.org	0x14E
+   014E 00 00               166 	.byte	0x00,0x00
+                            167 
+                            168 	;; ****************************************
+   0150                     169 	.org	0x150
+   0150                     170 .code_start:
+                            171 	;; Beginning of the code
+   0150 F3                  172 	DI			; Disable interrupts
+                            173 	
+   0151 57                  174 	LD	D,A		; Store CPU type in D
+   0152 AF                  175 	XOR	A
+                            176 	
+                            177 	;; Initialize the stack
+   0153 31 00 E0            178 	LD	SP,#.STACK
+                            179 	;; Clear from 0xC000 to 0xDFFF
+   0156 21 FF DF            180 	LD	HL,#0xDFFF
+   0159 0E 20               181 	LD	C,#0x20
+   015B 06 00               182 	LD	B,#0x00
+   015D                     183 1$:
+   015D 32                  184 	LD	(HL-),A
+   015E 05                  185 	DEC	B
+   015F 20 FC               186 	JR	NZ,1$
+   0161 0D                  187 	DEC	C
+   0162 20 F9               188 	JR	NZ,1$
+                            189 	
+                            190 	;; Clear from 0xFE00 to 0xFEFF
+   0164 21 FF FE            191 	LD	HL,#0xFEFF
+   0167 06 00               192 	LD	B,#0x00
+   0169                     193 2$:
+   0169 32                  194 	LD	(HL-),A
+   016A 05                  195 	DEC	B
+   016B 20 FC               196 	JR	NZ,2$
+                            197 	
+                            198 	;; Clear from 0xFF80 to 0xFFFF
+   016D 21 FF FF            199 	LD	HL,#0xFFFF
+   0170 06 80               200 	LD	B,#0x80
+   0172                     201 3$:
+   0172 32                  202 	LD	(HL-),A
+   0173 05                  203 	DEC	B
+   0174 20 FC               204 	JR	NZ,3$
+                            205 ; 	LD	(.mode),A	; Clearing (.mode) is performed when clearing RAM
+                            206 
+                            207 	;; Store CPU type
+   0176 7A                  208 	LD	A,D
+   0177 EA 83 C5            209 	LD	(__cpu),A
+                            210 
+                    2000    211 	.MBC1_ROM_PAGE	= 0x2000 ; Address to write to for MBC1 switching
+   017A 3E 01               212 	ld  a, #1               ; initialize switched bank to 1 before
+   017C EA 89 C5            213 	ld	(__current_bank),a  ; before enabling interrupts
+   017F EA 00 20            214 	ld	(.MBC1_ROM_PAGE),a	; Perform the switch
+   0182 AF                  215 	xor a,a                 ; initialize interrupt depth to 0
+   0183 EA 8A C5            216 	ld  (__ei_depth), a
+                            217 	
+                            218 	;; Turn the screen off
+   0186 CD 9F 06            219 	CALL	.display_off
+                            220 
+                            221 	;; Initialize the display
+   0189 AF                  222 	XOR	A
+   018A E0 42               223 	LDH	(.SCY),A
+   018C E0 43               224 	LDH	(.SCX),A
+   018E E0 41               225 	LDH	(.STAT),A
+   0190 E0 4A               226 	LDH	(.WY),A
+   0192 3E 07               227 	LD	A,#0x07
+   0194 E0 4B               228 	LDH	(.WX),A
+                            229 
+                            230 	;; Copy refresh_OAM routine to HIRAM
+   0196 01 80 FF            231 	LD	BC,#.refresh_OAM
+   0199 21 B6 06            232 	LD	HL,#.start_refresh_OAM
+   019C 06 0A               233 	LD	B,#.end_refresh_OAM-.start_refresh_OAM
+   019E                     234 4$:
+   019E 2A                  235 	LD	A,(HL+)
+   019F E2                  236 	LDH	(C),A
+   01A0 0C                  237 	INC	C
+   01A1 05                  238 	DEC	B
+   01A2 20 FA               239 	JR	NZ,4$
+                            240 
+                            241 	;; Install interrupt routines
+   01A4 01 77 06            242 	LD	BC,#.vbl
+   01A7 CD 2E 06            243 	CALL	.add_VBL
+   01AA 01 C0 06            244 	LD	BC,#.serial_IO
+   01AD CD 40 06            245 	CALL	.add_SIO
+                            246 
+                            247 	;; Standard color palettes
+   01B0 3E E4               248 	LD	A,#0b11100100	; Grey 3 = 11 (Black)
+                            249 				; Grey 2 = 10 (Dark grey)
+                            250 				; Grey 1 = 01 (Light grey)
+                            251 				; Grey 0 = 00 (Transparent)
+   01B2 E0 47               252 	LDH	(.BGP),A
+   01B4 E0 48               253 	LDH	(.OBP0),A
+   01B6 3E 1B               254 	LD	A,#0b00011011
+   01B8 E0 49               255 	LDH	(.OBP1),A
+                            256 
+                            257 	;; Turn the screen on
+   01BA 3E C0               258 	LD	A,#0b11000000	; LCD		= On
+                            259 				; WindowBank	= 0x9C00
+                            260 				; Window	= Off
+                            261 				; BG Chr	= 0x8800
+                            262 				; BG Bank	= 0x9800
+                            263 				; OBJ		= 8x8
+                            264 				; OBJ		= Off
+                            265 				; BG		= Off
+   01BC E0 40               266 	LDH	(.LCDC),A
+   01BE AF                  267 	XOR	A
+   01BF E0 0F               268 	LDH	(.IF),A
+   01C1 3E 09               269 	LD	A,#0b00001001	; Pin P10-P13	=   Off
+                            270 				; Serial I/O	=   On
+                            271 				; Timer Ovfl	=   Off
+                            272 				; LCDC		=   Off
+                            273 				; V-Blank	=   On
+   01C3 E0 FF               274 	LDH	(.IE),A
+                            275 
+   01C5 AF                  276 	XOR	A
+   01C6 E0 26               277 	LDH	(.NR52),A	; Turn sound off
+   01C8 E0 02               278 	LDH	(.SC),A		; Use external clock
+   01CA 3E 66               279 	LD	A,#.DT_IDLE
+   01CC E0 01               280 	LDH	(.SB),A		; Send IDLE byte
+   01CE 3E 80               281 	LD	A,#0x80
+   01D0 E0 02               282 	LDH	(.SC),A		; Use external clock
+                            283 
+   01D2 AF                  284 	XOR	A		; Erase the malloc list
+   01D3 EA 8B C5            285 	LD	(.sys_time+0),A	; Zero the system clock
+   01D6 EA 8C C5            286 	LD	(.sys_time+1),A	
+                            287 
+   01D9 CD 00 40            288 	call	gsinit
+   01DC CD 14 0C            289     call    _main
+                            290     
+   01DF                     291 _exit::	
+   01DF                     292 99$:
+   01DF 76                  293 	HALT
+   01E0 18 FD               294 	JR	99$		; Wait forever
+                            295 
+   01E2                     296 	.org	.MODE_TABLE
+                            297 	;; Jump table for modes
+   01E2 C9                  298 	RET
+                            299 	
+                            300 	.area	_BSS
+   0000                     301 __cpu::
+   0000                     302 	.ds	0x01		; GB type (GB, PGB, CGB)
+   0001                     303 .mode::
+   0001                     304 	.ds	0x01		; Current mode
+   0002                     305 __io_out::
+   0002                     306 	.ds	0x01		; Byte to send
+   0003                     307 __io_in::
+   0003                     308 	.ds	0x01		; Received byte
+   0004                     309 __io_status::
+   0004                     310 	.ds	0x01		; Status of serial IO
+   0005                     311 .vbl_done::
+   0005                     312 	.ds	0x01		; Is VBL interrupt finished?
+   0006                     313 __current_bank:
+   0006                     314 	.ds	0x01		; Current MBC1 style bank. - initlialize as 1
+   0007                     315 __ei_depth:  
+   0007                     316     .ds  0x01   ; depth of int enable
+                            317 
+   0008                     318 .sys_time::
+   0008                     319 _sys_time::
+   0008                     320 	.ds	0x02		; System time in VBL units
+   000A                     321 .int_0x40::
+   000A                     322 	.blkw	0x08
+   001A                     323 .int_0x48::
+   001A                     324 	.blkw	0x08
+   002A                     325 .int_0x50::
+   002A                     326 	.blkw	0x08
+   003A                     327 .int_0x58::
+   003A                     328 	.blkw	0x08
+   004A                     329 .int_0x60::
+   004A                     330 	.blkw	0x08
+                            331 
+                            332 	;; Runtime library
+                            333 	.area	_GSINIT
+   0000                     334 gsinit::
+                            335 	.area	_GSINITTAIL
+   415C C9                  336 	ret
+                            337 
+                            338 	.area	_CODE
+                            339 	;; Call the initialization function for the mode specified in HL
+   0000                     340 .set_mode:
+   0600 7D                  341 	LD	A,L
+   0601 EA 84 C5            342 	LD	(.mode),A
+                            343 
+                            344 	;; AND to get rid of the extra flags
+   0604 E6 03               345 	AND	#0x03
+   0606 6F                  346 	LD	L,A
+   0607 01 E2 01            347 	LD	BC,#.MODE_TABLE
+   060A CB 25               348 	SLA	L		; Multiply mode by 4
+   060C CB 25               349 	SLA	L
+   060E 09                  350 	ADD	HL,BC
+   060F E9                  351 	JP	(HL)		; Jump to initialization routine
+                            352 
+                            353 	;; Add interrupt routine in BC to the interrupt list
+   0010                     354 .remove_VBL::
+   0610 21 8D C5            355 	LD	HL,#.int_0x40
+   0613 C3 4C 06            356 	JP	.remove_int
+   0016                     357 .remove_LCD::
+   0616 21 9D C5            358 	LD	HL,#.int_0x48
+   0619 C3 4C 06            359 	JP	.remove_int
+   001C                     360 .remove_TIM::
+   061C 21 AD C5            361 	LD	HL,#.int_0x50
+   061F C3 4C 06            362 	JP	.remove_int
+   0022                     363 .remove_SIO::
+   0622 21 BD C5            364 	LD	HL,#.int_0x58
+   0625 C3 4C 06            365 	JP	.remove_int
+   0028                     366 .remove_JOY::
+   0628 21 CD C5            367 	LD	HL,#.int_0x60
+   062B C3 4C 06            368 	JP	.remove_int
+   002E                     369 .add_VBL::
+   062E 21 8D C5            370 	LD	HL,#.int_0x40
+   0631 C3 6C 06            371 	JP	.add_int
+   0034                     372 .add_LCD::
+   0634 21 9D C5            373 	LD	HL,#.int_0x48
+   0637 C3 6C 06            374 	JP	.add_int
+   003A                     375 .add_TIM::
+   063A 21 AD C5            376 	LD	HL,#.int_0x50
+   063D C3 6C 06            377 	JP	.add_int
+   0040                     378 .add_SIO::
+   0640 21 BD C5            379 	LD	HL,#.int_0x58
+   0643 C3 6C 06            380 	JP	.add_int
+   0046                     381 .add_JOY::
+   0646 21 CD C5            382 	LD	HL,#.int_0x60
+   0649 C3 6C 06            383 	JP	.add_int
+                            384 
+                            385 	;; Remove interrupt BC from interrupt list HL if it exists
+                            386 	;; Abort if a 0000 is found (end of list)
+                            387 	;; Will only remove last int on list
+   004C                     388 .remove_int::
+   004C                     389 1$:
+   064C 2A                  390 	LD	A,(HL+)
+   064D 5F                  391 	LD	E,A
+   064E 56                  392 	LD	D,(HL)
+   064F B2                  393 	OR	D
+   0650 C8                  394 	RET	Z		; No interrupt found
+                            395 
+   0651 7B                  396 	LD	A,E
+   0652 B9                  397 	CP	C
+   0653 20 F7               398 	JR	NZ,1$
+   0655 7A                  399 	LD	A,D
+   0656 B8                  400 	CP	B
+   0657 20 F3               401 	JR	NZ,1$
+                            402 
+   0659 AF                  403 	XOR	A
+   065A 32                  404 	LD	(HL-),A
+   065B 77                  405 	LD	(HL),A
+   065C 3C                  406 	INC	A		; Clear Z flag
+                            407 
+                            408 	;; Now do a memcpy from here until the end of the list
+   065D 54                  409 	LD	D,H
+   065E 5D                  410 	LD	E,L
+   065F 1B                  411 	DEC	DE
+                            412 
+   0660 23                  413 	INC	HL
+   0061                     414 2$:
+   0661 2A                  415 	LD	A,(HL+)
+   0662 12                  416 	LD	(DE),A
+   0663 47                  417 	LD	B,A
+   0664 13                  418 	INC	DE
+   0665 2A                  419 	LD	A,(HL+)
+   0666 12                  420 	LD	(DE),A
+   0667 13                  421 	INC	DE
+   0668 B0                  422 	OR	B
+   0669 C8                  423 	RET	Z
+   066A 18 F5               424 	JR	2$
+                            425 	
+                            426 	;; Add interrupt routine in BC to the interrupt list in HL
+   006C                     427 .add_int::
+   006C                     428 1$:
+   066C 2A                  429 	LD	A,(HL+)
+   066D B6                  430 	OR	(HL)
+   066E 28 03               431 	JR	Z,2$
+   0670 23                  432 	INC	HL
+   0671 18 F9               433 	JR	1$
+   0073                     434 2$:
+   0673 70                  435 	LD	(HL),B
+   0674 2B                  436 	DEC	HL
+   0675 71                  437 	LD	(HL),C
+   0676 C9                  438 	RET
+                            439 
+                            440 	;; VBlank interrupt
+   0077                     441 .vbl:
+   0677 21 8B C5            442 	LD	HL,#.sys_time
+   067A 34                  443 	INC	(HL)
+   067B 20 02               444 	JR	NZ,2$
+   067D 23                  445 	INC	HL
+   067E 34                  446 	INC	(HL)
+   007F                     447 2$:	
+   067F CD 80 FF            448 	CALL	.refresh_OAM
+   0682 3E 01               449 	LD	A,#0x01
+   0684 EA 88 C5            450 	LD	(.vbl_done),A
+   0687 C9                  451 	RET
+                            452 
+                            453 	;; Wait for VBL interrupt to be finished
+   0088                     454 .wait_vbl_done::
+   0088                     455 _wait_vbl_done::
+                            456 	;; Check if the screen is on
+   0688 F0 40               457 	LDH	A,(.LCDC)
+   068A 87                  458 	ADD	A
+   068B D0                  459 	RET	NC		; Return if screen is off
+   068C AF                  460 	XOR	A
+   068D F3                  461 	DI
+   068E EA 88 C5            462 	LD	(.vbl_done),A	; Clear any previous sets of vbl_done
+   0691 FB                  463 	EI
+   0092                     464 1$:
+   0692 76                  465 	HALT			; Wait for any interrupt
+   0693 00                  466 	NOP			; HALT sometimes skips the next instruction
+   0694 FA 88 C5            467 	LD	A,(.vbl_done)	; Was it a VBlank interrupt?
+                            468 	;; Warning: we may lose a VBlank interrupt, if it occurs now
+   0697 B7                  469 	OR	A
+   0698 28 F8               470 	JR	Z,1$		; No: back to sleep!
+                            471 
+   069A AF                  472 	XOR	A
+   069B EA 88 C5            473 	LD	(.vbl_done),A
+   069E C9                  474 	RET
+                            475 
+   009F                     476 .display_off::
+   009F                     477 _display_off::
+                            478 	;; Check if the screen is on
+   069F F0 40               479 	LDH	A,(.LCDC)
+   06A1 87                  480 	ADD	A
+   06A2 D0                  481 	RET	NC		; Return if screen is off
+   00A3                     482 1$:				; We wait for the *NEXT* VBL 
+   06A3 F0 44               483 	LDH	A,(.LY)
+   06A5 FE 92               484 	CP	#0x92		; Smaller than or equal to 0x91?
+   06A7 30 FA               485 	JR	NC,1$		; Loop until smaller than or equal to 0x91
+   00A9                     486 2$:
+   06A9 F0 44               487 	LDH	A,(.LY)
+   06AB FE 91               488 	CP	#0x91		; Bigger than 0x90?
+   06AD 38 FA               489 	JR	C,2$		; Loop until bigger than 0x90
+                            490 
+   06AF F0 40               491 	LDH	A,(.LCDC)
+   06B1 E6 7F               492 	AND	#0b01111111
+   06B3 E0 40               493 	LDH	(.LCDC),A	; Turn off screen
+   06B5 C9                  494 	RET
+                            495 
+                            496 	;; Copy OAM data to OAM RAM
+   00B6                     497 .start_refresh_OAM:
+   06B6 3E C0               498 	LD	A,#>.OAM
+   06B8 E0 46               499 	LDH	(.DMA),A	; Put A into DMA registers
+   06BA 3E 28               500 	LD	A,#0x28		; We need to wait 160 ns
+   00BC                     501 1$:
+   06BC 3D                  502 	DEC	A
+   06BD 20 FD               503 	JR	NZ,1$
+   06BF C9                  504 	RET
+   00C0                     505 .end_refresh_OAM:
+                            506 
+                            507 	;; Serial interrupt
+   00C0                     508 .serial_IO::
+   06C0 FA 87 C5            509 	LD	A,(__io_status) ; Get status
+                            510 
+   06C3 FE 02               511 	CP	#.IO_RECEIVING
+   06C5 20 09               512 	JR	NZ,10$
+                            513 
+                            514 	;; Receiving data
+   06C7 F0 01               515 	LDH	A,(.SB)		; Get data byte
+   06C9 EA 86 C5            516 	LD	(__io_in),A	; Store it
+   06CC 3E 00               517 	LD	A,#.IO_IDLE
+   06CE 18 0E               518 	JR	11$
+                            519 
+   00D0                     520 10$:
+                            521 
+   06D0 FE 01               522 	CP	#.IO_SENDING
+   06D2 20 16               523 	JR	NZ,99$
+                            524 
+                            525 	;; Sending data
+   06D4 F0 01               526 	LDH	A,(.SB)		; Get data byte
+   06D6 FE 55               527 	CP	#.DT_RECEIVING
+   06D8 28 04               528 	JR	Z,11$
+   06DA 3E 04               529 	LD	A,#.IO_ERROR
+   06DC 18 02               530 	JR	12$
+   00DE                     531 11$:
+   06DE 3E 00               532 	LD	A,#.IO_IDLE
+   00E0                     533 12$:
+   06E0 EA 87 C5            534 	LD	(__io_status),A ; Store status
+                            535 
+   06E3 AF                  536 	XOR	A
+   06E4 E0 02               537 	LDH	(.SC),A		; Use external clock
+   06E6 3E 66               538 	LD	A,#.DT_IDLE
+   06E8 E0 01               539 	LDH	(.SB),A		; Reply with IDLE byte
+   00EA                     540 99$:
+   06EA 3E 80               541 	LD	A,#0x80
+   06EC E0 02               542 	LDH	(.SC),A		; Enable transfer with external clock
+   06EE C9                  543 	RET
+                            544 
+   00EF                     545 _mode::
+   06EF F8 02               546 	LDA	HL,2(SP)	; Skip return address
+   06F1 6E                  547 	LD	L,(HL)
+   06F2 26 00               548 	LD	H,#0x00
+   06F4 CD 00 06            549 	CALL	.set_mode
+   06F7 C9                  550 	RET
+                            551 
+   00F8                     552 _get_mode::
+   06F8 21 84 C5            553 	LD	HL,#.mode
+   06FB 5E                  554 	LD	E,(HL)
+   06FC C9                  555 	RET
+                            556 	
+   00FD                     557 _disable_interrupts::
+   06FD F3                  558 	DI
+   06FE FA 8A C5            559     LD  A, (__ei_depth)
+   0701 3C                  560     INC A
+   0702 EA 8A C5            561     LD  (__ei_depth), A
+   0705 C9                  562 	RET
+                            563 
+   0106                     564 _enable_interrupts::
+   0706 FA 8A C5            565     LD  A, (__ei_depth)
+   0709 3D                  566     DEC A
+   070A EA 8A C5            567     LD  (__ei_depth), A
+   070D C0                  568     RET NZ
+   070E FB                  569 	EI
+   070F C9                  570 	RET
+                            571 
+   0110                     572 _set_interrupts::
+   0710 CD FD 06            573 	call _disable_interrupts
+   0713 F8 02               574 	LDA	HL,2(SP)	; Skip return address
+   0715 AF                  575 	XOR	A
+   0716 E0 0F               576 	LDH	(.IF),A		; Clear pending interrupts
+   0718 7E                  577 	LD	A,(HL)
+   0719 E0 FF               578 	LDH	(.IE),A
+   071B CD 06 07            579 	call _enable_interrupts
+   071E C9                  580 	RET
+                            581 
+   011F                     582 _remove_VBL::
+   071F C5                  583 	PUSH	BC
+   0720 F8 04               584 	LDA	HL,4(SP)	; Skip return address and registers
+   0722 4E                  585 	LD	C,(HL)
+   0723 23                  586 	INC	HL
+   0724 46                  587 	LD	B,(HL)
+   0725 CD 10 06            588 	CALL	.remove_VBL
+   0728 C1                  589 	POP	BC
+   0729 C9                  590 	RET
+                            591 
+   012A                     592 _remove_LCD::
+   072A C5                  593 	PUSH	BC
+   072B F8 04               594 	LDA	HL,4(SP)	; Skip return address and registers
+   072D 4E                  595 	LD	C,(HL)
+   072E 23                  596 	INC	HL
+   072F 46                  597 	LD	B,(HL)
+   0730 CD 16 06            598 	CALL	.remove_LCD
+   0733 C1                  599 	POP	BC
+   0734 C9                  600 	RET
+                            601 
+   0135                     602 _remove_TIM::
+   0735 C5                  603 	PUSH	BC
+   0736 F8 04               604 	LDA	HL,4(SP)	; Skip return address and registers
+   0738 4E                  605 	LD	C,(HL)
+   0739 23                  606 	INC	HL
+   073A 46                  607 	LD	B,(HL)
+   073B CD 1C 06            608 	CALL	.remove_TIM
+   073E C1                  609 	POP	BC
+   073F C9                  610 	RET
+                            611 
+   0140                     612 _remove_SIO::
+   0740 C5                  613 	PUSH	BC
+   0741 F8 04               614 	LDA	HL,4(SP)	; Skip return address and registers
+   0743 4E                  615 	LD	C,(HL)
+   0744 23                  616 	INC	HL
+   0745 46                  617 	LD	B,(HL)
+   0746 CD 22 06            618 	CALL	.remove_SIO
+   0749 C1                  619 	POP	BC
+   074A C9                  620 	RET
+                            621 
+   014B                     622 _remove_JOY::
+   074B C5                  623 	PUSH	BC
+   074C F8 04               624 	LDA	HL,4(SP)	; Skip return address and registers
+   074E 4E                  625 	LD	C,(HL)
+   074F 23                  626 	INC	HL
+   0750 46                  627 	LD	B,(HL)
+   0751 CD 28 06            628 	CALL	.remove_JOY
+   0754 C1                  629 	POP	BC
+   0755 C9                  630 	RET
+                            631 	
+   0156                     632 _add_VBL::
+   0756 C5                  633 	PUSH	BC
+   0757 F8 04               634 	LDA	HL,4(SP)	; Skip return address and registers
+   0759 4E                  635 	LD	C,(HL)
+   075A 23                  636 	INC	HL
+   075B 46                  637 	LD	B,(HL)
+   075C CD 2E 06            638 	CALL	.add_VBL
+   075F C1                  639 	POP	BC
+   0760 C9                  640 	RET
+                            641 
+   0161                     642 _add_LCD::
+   0761 C5                  643 	PUSH	BC
+   0762 F8 04               644 	LDA	HL,4(SP)	; Skip return address and registers
+   0764 4E                  645 	LD	C,(HL)
+   0765 23                  646 	INC	HL
+   0766 46                  647 	LD	B,(HL)
+   0767 CD 34 06            648 	CALL	.add_LCD
+   076A C1                  649 	POP	BC
+   076B C9                  650 	RET
+                            651 
+   016C                     652 _add_TIM::
+   076C C5                  653 	PUSH	BC
+   076D F8 04               654 	LDA	HL,4(SP)	; Skip return address and registers
+   076F 4E                  655 	LD	C,(HL)
+   0770 23                  656 	INC	HL
+   0771 46                  657 	LD	B,(HL)
+   0772 CD 3A 06            658 	CALL	.add_TIM
+   0775 C1                  659 	POP	BC
+   0776 C9                  660 	RET
+                            661 
+   0177                     662 _add_SIO::
+   0777 C5                  663 	PUSH	BC
+   0778 F8 04               664 	LDA	HL,4(SP)	; Skip return address and registers
+   077A 4E                  665 	LD	C,(HL)
+   077B 23                  666 	INC	HL
+   077C 46                  667 	LD	B,(HL)
+   077D CD 40 06            668 	CALL	.add_SIO
+   0780 C1                  669 	POP	BC
+   0781 C9                  670 	RET
+                            671 
+   0182                     672 _add_JOY::
+   0782 C5                  673 	PUSH	BC
+   0783 F8 04               674 	LDA	HL,4(SP)	; Skip return address and registers
+   0785 4E                  675 	LD	C,(HL)
+   0786 23                  676 	INC	HL
+   0787 46                  677 	LD	B,(HL)
+   0788 CD 46 06            678 	CALL	.add_JOY
+   078B C1                  679 	POP	BC
+   078C C9                  680 	RET
+                            681 
+                            682 	;; Performs a long call.
+                            683 	;; Basically:
+                            684 	;;   call banked_call
+                            685 	;;   .dw low
+                            686 	;;   .dw bank
+                            687 	;;   remainder of the code
+   018D                     688 banked_call::
+   078D CD FD 06            689 	call    _disable_interrupts
+   0790 E1                  690 	pop	hl
+                            691 
+   0791 5E                  692 	ld	e,(hl)		; Fetch the call address
+   0792 23                  693 	inc	hl
+   0793 56                  694 	ld	d,(hl)
+   0794 23                  695 	inc	hl
+                            696 
+   0795 2A                  697 	ld	a,(hl+)		; ...and page
+   0796 23                  698 	inc	hl
+   0797 E5                  699 	push	hl
+                            700 	
+   0798 47                  701 	ld  b,a
+   0799 FA 89 C5            702 	ld	a,(__current_bank)
+   079C F5                  703 	push	af		; Push the current bank onto the stack
+   079D 78                  704     ld  a,b
+                            705     
+   079E EA 89 C5            706 	ld	(__current_bank),a
+   07A1 EA 00 20            707 	ld	(.MBC1_ROM_PAGE),a	; Perform the switch
+                            708 
+   07A4 CD 06 07            709 	call    _enable_interrupts;
+   07A7 21 AE 07            710 	ld	hl,#banked_ret	; Push the fake return address
+   07AA E5                  711 	push	hl
+   07AB 6B                  712 	ld	l,e
+   07AC 62                  713 	ld	h,d
+   07AD E9                  714 	jp	(hl)
+                            715 
+   01AE                     716 banked_ret::
+                            717     ; note - preserve DE and HL as these are used to pass
+                            718     ; back return values
+   07AE CD FD 06            719 	call    _disable_interrupts
+   07B1 F1                  720 	pop	af		; Pop the old bank
+   07B2 EA 00 20            721 	ld	(.MBC1_ROM_PAGE),a
+   07B5 EA 89 C5            722 	ld	(__current_bank),a
+   07B8 CD 06 07            723 	call    _enable_interrupts;
+   07BB C9                  724 	ret
+                            725 	
+                            726 	.area	_HEAP
+   0000                     727 _malloc_heap_start::
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 1.
+"Runtime"
+Symbol Table
+
+    .A                                                          =  0010 
+    .B                                                          =  0020 
+    .BANKOV                                                     =  0002 
+    .BCPD                                                       =  0069 
+    .BCPS                                                       =  0068 
+    .BGP                                                        =  0047 
+    .DIV                                                        =  0004 
+    .DMA                                                        =  0046 
+    .DOWN                                                       =  0008 
+    .DT_IDLE                                                    =  0066 
+    .DT_RECEIVING                                               =  0055 
+    .G_MODE                                                     =  0001 
+    .HDMA1                                                      =  0051 
+    .HDMA2                                                      =  0052 
+    .HDMA3                                                      =  0053 
+    .HDMA4                                                      =  0054 
+    .HDMA5                                                      =  0055 
+    .IE                                                         =  00FF 
+    .IF                                                         =  000F 
+    .IO_ERROR                                                   =  0004 
+    .IO_IDLE                                                    =  0000 
+    .IO_RECEIVING                                               =  0002 
+    .IO_SENDING                                                 =  0001 
+    .JOY_IFLAG                                                  =  0010 
+    .KEY1                                                       =  004D 
+    .LCDC                                                       =  0040 
+    .LCD_IFLAG                                                  =  0002 
+    .LEFT                                                       =  0002 
+    .LY                                                         =  0044 
+    .LYC                                                        =  0045 
+    .MAXCURSPOSX                                                =  0013 
+    .MAXCURSPOSY                                                =  0011 
+    .MAXWNDPOSX                                                 =  00A6 
+    .MAXWNDPOSY                                                 =  008F 
+    .MBC1_ROM_PAGE                                              =  2000 
+    .MINWNDPOSX                                                 =  0007 
+    .MINWNDPOSY                                                 =  0000 
+    .MODE_TABLE                                                 =  01E2 
+    .M_NO_INTERP                                                =  0008 
+    .M_NO_SCROLL                                                =  0004 
+    .NEAR_CALLS                                                 =  0001 
+    .NR10                                                       =  0010 
+    .NR11                                                       =  0011 
+    .NR12                                                       =  0012 
+    .NR13                                                       =  0013 
+    .NR14                                                       =  0014 
+    .NR21                                                       =  0016 
+    .NR22                                                       =  0017 
+    .NR23                                                       =  0018 
+    .NR24                                                       =  0019 
+    .NR30                                                       =  001A 
+    .NR31                                                       =  001B 
+    .NR32                                                       =  001C 
+    .NR33                                                       =  001D 
+    .NR34                                                       =  001E 
+    .NR41                                                       =  0020 
+    .NR42                                                       =  0021 
+    .NR43                                                       =  0022 
+    .NR44                                                       =  0023 
+    .NR50                                                       =  0024 
+    .NR51                                                       =  0025 
+    .NR52                                                       =  0026 
+    .OAM                                                           **** GX
+    .OBP0                                                       =  0048 
+    .OBP1                                                       =  0049 
+    .OCPD                                                       =  006B 
+    .OCPS                                                       =  006A 
+    .P1                                                         =  0000 
+    .RIGHT                                                      =  0001 
+    .RP                                                         =  0056 
+    .SB                                                         =  0001 
+    .SC                                                         =  0002 
+    .SCREENHEIGHT                                               =  0090 
+    .SCREENWIDTH                                                =  00A0 
+    .SCX                                                        =  0043 
+    .SCY                                                        =  0042 
+    .SELECT                                                     =  0040 
+    .SIO_IFLAG                                                  =  0008 
+    .STACK                                                         **** GX
+    .START                                                      =  0080 
+    .STAT                                                       =  0041 
+    .SVBK                                                       =  0070 
+    .TAC                                                        =  0007 
+    .TIMA                                                       =  0005 
+    .TIM_IFLAG                                                  =  0004 
+    .TMA                                                        =  0006 
+    .T_MODE                                                     =  0002 
+    .T_MODE_INOUT                                               =  0003 
+    .T_MODE_OUT                                                 =  0002 
+    .UP                                                         =  0004 
+    .VBK                                                        =  004F 
+    .VBL_IFLAG                                                  =  0001 
+    .WX                                                         =  004B 
+    .WY                                                         =  004A 
+  0 .add_JOY                                                       0046 GR
+  0 .add_LCD                                                       0034 GR
+  0 .add_SIO                                                       0040 GR
+  0 .add_TIM                                                       003A GR
+  0 .add_VBL                                                       002E GR
+  0 .add_int                                                       006C GR
+  1 .code_start                                                    0150 R
+  0 .display_off                                                   009F GR
+  0 .end_refresh_OAM                                               00C0 R
+  1 .header                                                        0100 R
+  1 .int                                                           0067 R
+  9 .int_0x40                                                      000A GR
+  9 .int_0x48                                                      001A GR
+  9 .int_0x50                                                      002A GR
+  9 .int_0x58                                                      003A GR
+  9 .int_0x60                                                      004A GR
+  1 .int_JOY                                                       0060 R
+  1 .int_LCD                                                       0048 R
+  1 .int_SIO                                                       0058 R
+  1 .int_TIM                                                       0050 R
+  1 .int_VBL                                                       0040 R
+  9 .mode                                                          0001 GR
+    .refresh_OAM                                                   **** GX
+  0 .remove_JOY                                                    0028 GR
+  0 .remove_LCD                                                    0016 GR
+  0 .remove_SIO                                                    0022 GR
+  0 .remove_TIM                                                    001C GR
+  0 .remove_VBL                                                    0010 GR
+  0 .remove_int                                                    004C GR
+  0 .serial_IO                                                     00C0 GR
+  0 .set_mode                                                      0000 R
+  0 .start_refresh_OAM                                             00B6 R
+  9 .sys_time                                                      0008 GR
+  0 .vbl                                                           0077 R
+  9 .vbl_done                                                      0005 GR
+  0 .wait_vbl_done                                                 0088 GR
+    __RGBDS__                                                   =  0000 
+  9 __cpu                                                          0000 GR
+  9 __current_bank                                                 0006 R
+  9 __ei_depth                                                     0007 R
+  9 __io_in                                                        0003 GR
+  9 __io_out                                                       0002 GR
+  9 __io_status                                                    0004 GR
+  0 _add_JOY                                                       0182 GR
+  0 _add_LCD                                                       0161 GR
+  0 _add_SIO                                                       0177 GR
+  0 _add_TIM                                                       016C GR
+  0 _add_VBL                                                       0156 GR
+  0 _disable_interrupts                                            00FD GR
+  0 _display_off                                                   009F GR
+  0 _enable_interrupts                                             0106 GR
+  1 _exit                                                          01DF GR
+  0 _get_mode                                                      00F8 GR
+    _main                                                          **** GX
+  A _malloc_heap_start                                             0000 GR
+  0 _mode                                                          00EF GR
+  0 _remove_JOY                                                    014B GR
+  0 _remove_LCD                                                    012A GR
+  0 _remove_SIO                                                    0140 GR
+  0 _remove_TIM                                                    0135 GR
+  0 _remove_VBL                                                    011F GR
+  0 _set_interrupts                                                0110 GR
+  9 _sys_time                                                      0008 GR
+  0 _wait_vbl_done                                                 0088 GR
+  0 banked_call                                                    018D GR
+  0 banked_ret                                                     01AE GR
+  5 gsinit                                                         0000 GR
+
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 2.
+"Runtime"
+Area Table
+
+   0 _CODE                                                          size  1BC   flags 0
+   1 _HEADER                                                        size  1E3   flags 8
+   2 _BASE                                                          size    0   flags 0
+   3 _LIT                                                           size    0   flags 0
+   4 _CODE_1                                                        size    0   flags 0
+   5 _GSINIT                                                        size    0   flags 0
+   6 _GSINITTAIL                                                    size    1   flags 0
+   7 _GSFINAL                                                       size    0   flags 0
+   8 _DATA                                                          size    0   flags 0
+   9 _BSS                                                           size   5A   flags 0
+   A _HEAP                                                          size    0   flags 0

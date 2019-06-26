@@ -1,0 +1,40 @@
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+    _Pause                                                         **** GX
+  0 __str_0                                                        0086 R
+  0 __str_1                                                        0093 R
+    _halt                                                          **** GX
+  0 _main                                                          0000 GR
+    _part1                                                         **** GX
+    _part2                                                         **** GX
+    _part3                                                         **** GX
+    _part4                                                         **** GX
+    _part5                                                         **** GX
+    _part6                                                         **** GX
+    _part7                                                         **** GX
+    _part8                                                         **** GX
+    _printf                                                        **** GX
+    b_Pause                                                        **** GX
+    b_part1                                                        **** GX
+    b_part2                                                        **** GX
+    b_part3                                                        **** GX
+    b_part4                                                        **** GX
+    b_part5                                                        **** GX
+    b_part6                                                        **** GX
+    b_part7                                                        **** GX
+    b_part8                                                        **** GX
+    banked_call                                                    **** GX
+
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                                                          size   9E   flags 0
+   1 _DATA                                                          size    0   flags 0
+   2 _OVERLAY                                                       size    0   flags 0
+   3 _HOME                                                          size    0   flags 0
+   4 _GSINIT                                                        size    0   flags 0
+   5 _GSFINAL                                                       size    0   flags 0
+   6 _CABS                                                          size    0   flags 0

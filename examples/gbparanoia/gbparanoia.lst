@@ -1,0 +1,128 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 2.9.0 #5416 (Apr  7 2010) (MINGW32)
+                              4 ; This file was generated Wed Dec 20 16:20:15 2017
+                              5 ;--------------------------------------------------------
+                              6 	.module gbparanoia
+                              7 	.optsdcc -mgbz80
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _main
+                             13 ;--------------------------------------------------------
+                             14 ;  ram data
+                             15 ;--------------------------------------------------------
+                             16 	.area _DATA
+                             17 ;--------------------------------------------------------
+                             18 ; overlayable items in  ram 
+                             19 ;--------------------------------------------------------
+                             20 	.area _OVERLAY
+                             21 ;--------------------------------------------------------
+                             22 ; external initialized ram data
+                             23 ;--------------------------------------------------------
+                             24 ;--------------------------------------------------------
+                             25 ; global & static initialisations
+                             26 ;--------------------------------------------------------
+                             27 	.area _HOME
+                             28 	.area _GSINIT
+                             29 	.area _GSFINAL
+                             30 	.area _GSINIT
+                             31 ;--------------------------------------------------------
+                             32 ; Home
+                             33 ;--------------------------------------------------------
+                             34 	.area _HOME
+                             35 	.area _HOME
+                             36 ;--------------------------------------------------------
+                             37 ; code
+                             38 ;--------------------------------------------------------
+                             39 	.area _CODE
+                             40 ;gbparanoia.c:8: void main(){
+                             41 ;	---------------------------------
+                             42 ; Function main
+                             43 ; ---------------------------------
+   0000                      44 _main:
+                             45 	
+                             46 ;gbparanoia.c:9: printf("Hello World\n");
+   0000 21r86s00             47 	ld	hl,#__str_0
+   0003 E5                   48 	push	hl
+   0004 CDr00s00             49 	call	_printf
+   0007 E8 02                50 	lda	sp,2(sp)
+                             51 ;gbparanoia.c:20: Pause();part1();
+   0009 CDr00s00             52 	call	banked_call
+   000Cr00s00                53 	.dw	_Pause
+   000Er00s00                54 	.dw	b_Pause
+   0010 CDr00s00             55 	call	banked_call
+   0013r00s00                56 	.dw	_part1
+   0015r00s00                57 	.dw	b_part1
+                             58 ;gbparanoia.c:21: Pause();part2();
+   0017 CDr00s00             59 	call	banked_call
+   001Ar00s00                60 	.dw	_Pause
+   001Cr00s00                61 	.dw	b_Pause
+   001E CDr00s00             62 	call	banked_call
+   0021r00s00                63 	.dw	_part2
+   0023r00s00                64 	.dw	b_part2
+                             65 ;gbparanoia.c:22: Pause();part3();
+   0025 CDr00s00             66 	call	banked_call
+   0028r00s00                67 	.dw	_Pause
+   002Ar00s00                68 	.dw	b_Pause
+   002C CDr00s00             69 	call	banked_call
+   002Fr00s00                70 	.dw	_part3
+   0031r00s00                71 	.dw	b_part3
+                             72 ;gbparanoia.c:23: Pause();part4();
+   0033 CDr00s00             73 	call	banked_call
+   0036r00s00                74 	.dw	_Pause
+   0038r00s00                75 	.dw	b_Pause
+   003A CDr00s00             76 	call	banked_call
+   003Dr00s00                77 	.dw	_part4
+   003Fr00s00                78 	.dw	b_part4
+                             79 ;gbparanoia.c:24: Pause();part5();
+   0041 CDr00s00             80 	call	banked_call
+   0044r00s00                81 	.dw	_Pause
+   0046r00s00                82 	.dw	b_Pause
+   0048 CDr00s00             83 	call	banked_call
+   004Br00s00                84 	.dw	_part5
+   004Dr00s00                85 	.dw	b_part5
+                             86 ;gbparanoia.c:25: Pause();part6();
+   004F CDr00s00             87 	call	banked_call
+   0052r00s00                88 	.dw	_Pause
+   0054r00s00                89 	.dw	b_Pause
+   0056 CDr00s00             90 	call	banked_call
+   0059r00s00                91 	.dw	_part6
+   005Br00s00                92 	.dw	b_part6
+                             93 ;gbparanoia.c:26: Pause();part7();
+   005D CDr00s00             94 	call	banked_call
+   0060r00s00                95 	.dw	_Pause
+   0062r00s00                96 	.dw	b_Pause
+   0064 CDr00s00             97 	call	banked_call
+   0067r00s00                98 	.dw	_part7
+   0069r00s00                99 	.dw	b_part7
+                            100 ;gbparanoia.c:27: Pause();part8();
+   006B CDr00s00            101 	call	banked_call
+   006Er00s00               102 	.dw	_Pause
+   0070r00s00               103 	.dw	b_Pause
+   0072 CDr00s00            104 	call	banked_call
+   0075r00s00               105 	.dw	_part8
+   0077r00s00               106 	.dw	b_part8
+                            107 ;gbparanoia.c:28: printf("Bye World\n");
+   0079 21r93s00            108 	ld	hl,#__str_1
+   007C E5                  109 	push	hl
+   007D CDr00s00            110 	call	_printf
+   0080 E8 02               111 	lda	sp,2(sp)
+                            112 ;gbparanoia.c:29: halt();
+   0082 CDr00s00            113 	call	_halt
+   0085                     114 00101$:
+                            115 	
+   0085 C9                  116 ret
+   0086                     117 __str_0:
+   0086 48 65 6C 6C 6F 20   118 	.ascii "Hello World"
+        57 6F 72 6C 64
+   0091 0A                  119 	.db 0x0A
+   0092 00                  120 	.db 0x00
+   0093                     121 __str_1:
+   0093 42 79 65 20 57 6F   122 	.ascii "Bye World"
+        72 6C 64
+   009C 0A                  123 	.db 0x0A
+   009D 00                  124 	.db 0x00
+                            125 	.area _CODE
+                            126 	.area _CABS

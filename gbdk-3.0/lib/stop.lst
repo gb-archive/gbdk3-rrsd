@@ -1,0 +1,17 @@
+                              1 	.area	_CODE
+                              2 
+   0000                       3 _stop::
+   0000 10 00                 4 	stop
+   0002 C9                    5 	ret
+                              6 
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+  0 _stop                                                          0000 GR
+
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                                                          size    3   flags 0

@@ -1,0 +1,142 @@
+XL
+H 7 areas 67 global symbols
+M paranoia
+O -mgbz80
+S __initrleblock Ref0000
+S _longjmp Ref0000
+S _exit Ref0000
+S _printf Ref0000
+A _CODE size A5 flags 0
+S _Five Def005D
+S _Nine Def0065
+S _NoTrials Def007D
+S _MinusOne Def0075
+S _Four Def0059
+S _sigfpe Def0000
+S _ThirtyTwo Def006D
+S _Zero Def0045
+S _One Def004D
+S _TwentySeven Def0069
+S _TwoForty Def0071
+S _OneAndHalf Def0079
+S _Eight Def0061
+S _Three Def0055
+S _Two Def0051
+S _Half Def0049
+A _DATA size 124 flags 0
+S _C Def0028
+S _D Def0030
+S _fpecount Def00FA
+S _RAddSub Def0110
+S _MyZero Def0076
+S _U1 Def00A2
+S _V0 Def00AE
+S _Done Def0116
+S _U2 Def00A6
+S _UfNGrad Def0122
+S _H Def0064
+S _I Def006C
+S _X1 Def00BE
+S _GMult Def0106
+S _J Def0072
+S _Q9 Def0082
+S _X2 Def00C2
+S _Y1 Def00D2
+S _GDiv Def0108
+S _Y2 Def00D6
+S _Z1 Def00E6
+S _Z2 Def00EA
+S _M Def0100
+S _Monot Def011A
+S _RadixD2 Def000E
+S _N Def0102
+S _V9 Def00B2
+S _X8 Def00C6
+S _Q Def007E
+S _Anomaly Def011C
+S _sigsave Def0004
+S _R Def0086
+S _Random1 Def00CA
+S _Indx Def0016
+S _S Def0096
+S _Random2 Def00DA
+S _Z9 Def00EE
+S _T Def008E
+S _RMult Def010C
+S _BMinusU2 Def0012
+S _RDiv Def010E
+S _UfThold Def009E
+S _V Def00AA
+S _W Def00B6
+S _AInvrse Def0020
+S _X Def00BA
+S _BInvrse Def000A
+S _Y Def00CE
+S _CInvrse Def002C
+S _Random9 Def008A
+S _Z Def00DE
+S _PageNo Def00FE
+S _SqEr Def004C
+S _RSqrt Def0112
+S _NotMonot Def0118
+S _Exp2 Def0040
+S _MinSqEr Def0048
+S _HInvrse Def0068
+S _MaxSqEr Def0050
+S _Break Def0114
+S _ch Def0018
+S _Precision Def007A
+S _ErrCnt Def00F2
+S _PseudoZero Def00E2
+S _Milestone Def00FC
+S _A1 Def0024
+S _ovfl_buf Def0000
+S _OneUlp Def009A
+S _SqRWrng Def0120
+S _E0 Def0038
+S _E1 Def003C
+S _StickyBit Def006E
+S _Underflow Def0092
+S _Radix Def0006
+S _E3 Def0044
+S _IEEE Def011E
+S _GAddSub Def010A
+S _Third Def0058
+S _F6 Def005C
+S _E9 Def0054
+S _F9 Def0060
+S _N1 Def0104
+S _FourD Def0034
+A _OVERLAY size 0 flags 0
+A _HOME size 0 flags 0
+A _GSINIT size 13 flags 0
+A _GSFINAL size 0 flags 0
+A _CABS size 0 flags 0
+T 00 00 21 F2 00 CD 00 00 F8 00 00 21 FE 00 36 01
+R 00 00 04 00 00 03 01 00 02 06 00 00 00 0C 01 00
+T 0E 00 21 FF 00 36 00
+R 00 00 04 00 00 03 01 00
+T 00 00 21 FA 00 34 20 04 21 FB 00 34 F8 02 2A 66
+R 00 00 00 00 00 03 01 00 00 09 01 00
+T 0E 00 6F E5 21 7F 00 E5 CD 00 00 E8 04 21 04 00
+R 00 00 00 00 00 05 00 00 02 09 03 00 00 0E 01 00
+T 1C 00 7E 21 05 00 B6 CA 3B 00 21 04 00 36 00 21
+R 00 00 00 00 00 04 01 00 00 08 00 00 00 0B 01 00
+T 2A 00 05 00 36 00 21 01 00 E5 21 00 00 E5 CD
+R 00 00 00 00 00 02 01 00 00 0B 01 00
+T 37 00 00 00 E8 04 21 01 00 E5 CD 00 00 E8 02 C9
+R 00 00 00 00 02 02 01 00 02 0B 02 00
+T 45 00 00 00 00 00 00 00 00 3F 00 00 80 3F 00 00
+R 00 00 00 00
+T 53 00 00 40 00 00 40 40 00 00 80 40 00 00 A0 40
+R 00 00 00 00
+T 61 00 00 00 00 41 00 00 10 41 00 00 D8 41 00 00
+R 00 00 00 00
+T 6F 00 00 42 00 00 70 43 00 00 80 BF 00 00 C0 3F
+R 00 00 00 00
+T 7D 00 14 00 0A 2A 20 2A 20 2A 20 46 4C 4F 41 54
+R 00 00 00 00
+T 8B 00 49 4E 47 2D 50 4F 49 4E 54 20 45 52 52 4F
+R 00 00 00 00
+T 99 00 52 20 25 64 20 2A 20 2A 20 2A 0A 00
+R 00 00 00 00

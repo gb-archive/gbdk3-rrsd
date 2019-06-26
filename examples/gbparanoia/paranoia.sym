@@ -1,0 +1,120 @@
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+  1 _A1                                                            0024 GR
+  1 _AInvrse                                                       0020 GR
+  1 _Anomaly                                                       011C GR
+  1 _BInvrse                                                       000A GR
+  1 _BMinusU2                                                      0012 GR
+  1 _Break                                                         0114 GR
+  1 _C                                                             0028 GR
+  1 _CInvrse                                                       002C GR
+  1 _D                                                             0030 GR
+  1 _Done                                                          0116 GR
+  1 _E0                                                            0038 GR
+  1 _E1                                                            003C GR
+  1 _E3                                                            0044 GR
+  1 _E9                                                            0054 GR
+  0 _Eight                                                         0061 GR
+  1 _ErrCnt                                                        00F2 GR
+  1 _Exp2                                                          0040 GR
+  1 _F6                                                            005C GR
+  1 _F9                                                            0060 GR
+  0 _Five                                                          005D GR
+  0 _Four                                                          0059 GR
+  1 _FourD                                                         0034 GR
+  1 _GAddSub                                                       010A GR
+  1 _GDiv                                                          0108 GR
+  1 _GMult                                                         0106 GR
+  1 _H                                                             0064 GR
+  1 _HInvrse                                                       0068 GR
+  0 _Half                                                          0049 GR
+  1 _I                                                             006C GR
+  1 _IEEE                                                          011E GR
+  1 _Indx                                                          0016 GR
+  1 _J                                                             0072 GR
+  1 _M                                                             0100 GR
+  1 _MaxSqEr                                                       0050 GR
+  1 _Milestone                                                     00FC GR
+  1 _MinSqEr                                                       0048 GR
+  0 _MinusOne                                                      0075 GR
+  1 _Monot                                                         011A GR
+  1 _MyZero                                                        0076 GR
+  1 _N                                                             0102 GR
+  1 _N1                                                            0104 GR
+  0 _Nine                                                          0065 GR
+  0 _NoTrials                                                      007D GR
+  1 _NotMonot                                                      0118 GR
+  0 _One                                                           004D GR
+  0 _OneAndHalf                                                    0079 GR
+  1 _OneUlp                                                        009A GR
+  1 _PageNo                                                        00FE GR
+  1 _Precision                                                     007A GR
+  1 _PseudoZero                                                    00E2 GR
+  1 _Q                                                             007E GR
+  1 _Q9                                                            0082 GR
+  1 _R                                                             0086 GR
+  1 _RAddSub                                                       0110 GR
+  1 _RDiv                                                          010E GR
+  1 _RMult                                                         010C GR
+  1 _RSqrt                                                         0112 GR
+  1 _Radix                                                         0006 GR
+  1 _RadixD2                                                       000E GR
+  1 _Random1                                                       00CA GR
+  1 _Random2                                                       00DA GR
+  1 _Random9                                                       008A GR
+  1 _S                                                             0096 GR
+  1 _SqEr                                                          004C GR
+  1 _SqRWrng                                                       0120 GR
+  1 _StickyBit                                                     006E GR
+  1 _T                                                             008E GR
+  1 _Third                                                         0058 GR
+  0 _ThirtyTwo                                                     006D GR
+  0 _Three                                                         0055 GR
+  0 _TwentySeven                                                   0069 GR
+  0 _Two                                                           0051 GR
+  0 _TwoForty                                                      0071 GR
+  1 _U1                                                            00A2 GR
+  1 _U2                                                            00A6 GR
+  1 _UfNGrad                                                       0122 GR
+  1 _UfThold                                                       009E GR
+  1 _Underflow                                                     0092 GR
+  1 _V                                                             00AA GR
+  1 _V0                                                            00AE GR
+  1 _V9                                                            00B2 GR
+  1 _W                                                             00B6 GR
+  1 _X                                                             00BA GR
+  1 _X1                                                            00BE GR
+  1 _X2                                                            00C2 GR
+  1 _X8                                                            00C6 GR
+  1 _Y                                                             00CE GR
+  1 _Y1                                                            00D2 GR
+  1 _Y2                                                            00D6 GR
+  1 _Z                                                             00DE GR
+  1 _Z1                                                            00E6 GR
+  1 _Z2                                                            00EA GR
+  1 _Z9                                                            00EE GR
+  0 _Zero                                                          0045 GR
+    __initrleblock                                                 **** GX
+  0 __str_0                                                        007F R
+  1 _ch                                                            0018 GR
+    _exit                                                          **** GX
+  1 _fpecount                                                      00FA GR
+    _longjmp                                                       **** GX
+  1 _ovfl_buf                                                      0000 GR
+    _printf                                                        **** GX
+  0 _sigfpe                                                        0000 GR
+  1 _sigsave                                                       0004 GR
+
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                                                          size   A5   flags 0
+   1 _DATA                                                          size  124   flags 0
+   2 _OVERLAY                                                       size    0   flags 0
+   3 _HOME                                                          size    0   flags 0
+   4 _GSINIT                                                        size   13   flags 0
+   5 _GSFINAL                                                       size    0   flags 0
+   6 _CABS                                                          size    0   flags 0

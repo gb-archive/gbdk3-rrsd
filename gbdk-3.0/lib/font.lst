@@ -1,0 +1,1046 @@
+                              1 ; font.ms
+                              2 ;
+                              3 ;	Michael Hope, 1999
+                              4 ;	michaelh@earthling.net
+                              5 ;	Distrubuted under the Artistic License - see www.opensource.org
+                              6 ;
+                              7 	.include    "global.s"
+                    0001      1 	.NEAR_CALLS = 1
+                              2 	;; Changed by astorgb.pl to 1
+                    0000      3 	__RGBDS__	= 0
+                              4 
+                              5 	;;  Screen dimensions 
+                    0013      6 	.MAXCURSPOSX	= 0x13	; In tiles
+                    0011      7 	.MAXCURSPOSY	= 0x11
+                              8 
+                    0080      9 	.START		= 0x80
+                    0040     10 	.SELECT		= 0x40
+                    0020     11 	.B		= 0x20
+                    0010     12 	.A		= 0x10
+                    0008     13 	.DOWN		= 0x08
+                    0004     14 	.UP		= 0x04
+                    0002     15 	.LEFT		= 0x02
+                    0001     16 	.RIGHT		= 0x01
+                             17 
+                    00A0     18 	.SCREENWIDTH	= 0xA0
+                    0090     19 	.SCREENHEIGHT	= 0x90
+                    0007     20 	.MINWNDPOSX	= 0x07
+                    0000     21 	.MINWNDPOSY	= 0x00
+                    00A6     22 	.MAXWNDPOSX	= 0xA6
+                    008F     23 	.MAXWNDPOSY	= 0x8F
+                             24 
+                    0001     25 	.VBL_IFLAG	= 0x01
+                    0002     26 	.LCD_IFLAG	= 0x02
+                    0004     27 	.TIM_IFLAG	= 0x04
+                    0008     28 	.SIO_IFLAG	= 0x08
+                    0010     29 	.JOY_IFLAG	= 0x10
+                             30  
+                    0000     31 	.P1		= 0x00	; Joystick: 1.1.P15.P14.P13.P12.P11.P10
+                    0001     32 	.SB		= 0x01	; Serial IO data buffer
+                    0002     33 	.SC		= 0x02	; Serial IO control register
+                    0004     34 	.DIV		= 0x04	; Divider register
+                    0005     35 	.TIMA		= 0x05	; Timer counter
+                    0006     36 	.TMA		= 0x06	; Timer modulo
+                    0007     37 	.TAC		= 0x07	; Timer control
+                    000F     38 	.IF		= 0x0F	; Interrupt flags: 0.0.0.JST.SIO.TIM.LCD.VBL
+                    0010     39 	.NR10		= 0x10	; Sound register
+                    0011     40 	.NR11		= 0x11	; Sound register
+                    0012     41 	.NR12		= 0x12	; Sound register
+                    0013     42 	.NR13		= 0x13	; Sound register
+                    0014     43 	.NR14		= 0x14	; Sound register
+                    0016     44 	.NR21		= 0x16	; Sound register
+                    0017     45 	.NR22		= 0x17	; Sound register
+                    0018     46 	.NR23		= 0x18	; Sound register
+                    0019     47 	.NR24		= 0x19	; Sound register
+                    001A     48 	.NR30		= 0x1A	; Sound register
+                    001B     49 	.NR31		= 0x1B	; Sound register
+                    001C     50 	.NR32		= 0x1C	; Sound register
+                    001D     51 	.NR33		= 0x1D	; Sound register
+                    001E     52 	.NR34		= 0x1E	; Sound register
+                    0020     53 	.NR41		= 0x20	; Sound register
+                    0021     54 	.NR42		= 0x21	; Sound register
+                    0022     55 	.NR43		= 0x22	; Sound register
+                    0023     56 	.NR44		= 0x23	; Sound register
+                    0024     57 	.NR50		= 0x24	; Sound register
+                    0025     58 	.NR51		= 0x25	; Sound register
+                    0026     59 	.NR52		= 0x26	; Sound register
+                    0040     60 	.LCDC		= 0x40	; LCD control
+                    0041     61 	.STAT		= 0x41	; LCD status
+                    0042     62 	.SCY		= 0x42	; Scroll Y
+                    0043     63 	.SCX		= 0x43	; Scroll X
+                    0044     64 	.LY		= 0x44	; LCDC Y-coordinate
+                    0045     65 	.LYC		= 0x45	; LY compare
+                    0046     66 	.DMA		= 0x46	; DMA transfer
+                    0047     67 	.BGP		= 0x47	; BG palette data
+                    0048     68 	.OBP0		= 0x48	; OBJ palette 0 data
+                    0049     69 	.OBP1		= 0x49	; OBJ palette 1 data
+                    004A     70 	.WY		= 0x4A	; Window Y coordinate
+                    004B     71 	.WX		= 0x4B	; Window X coordinate
+                    004D     72 	.KEY1		= 0x4D	; CPU speed
+                    004F     73 	.VBK		= 0x4F	; VRAM bank
+                    0051     74 	.HDMA1		= 0x51	; DMA control 1
+                    0052     75 	.HDMA2		= 0x52	; DMA control 2
+                    0053     76 	.HDMA3		= 0x53	; DMA control 3
+                    0054     77 	.HDMA4		= 0x54	; DMA control 4
+                    0055     78 	.HDMA5		= 0x55	; DMA control 5
+                    0056     79 	.RP		= 0x56	; IR port
+                    0068     80 	.BCPS		= 0x68	; BG color palette specification
+                    0069     81 	.BCPD		= 0x69	; BG color palette data
+                    006A     82 	.OCPS		= 0x6A	; OBJ color palette specification
+                    006B     83 	.OCPD		= 0x6B	; OBJ color palette data
+                    0070     84 	.SVBK		= 0x70	; WRAM bank
+                    00FF     85 	.IE		= 0xFF	; Interrupt enable
+                             86 
+                    0001     87 	.G_MODE		= 0x01	; Graphic mode
+                    0002     88 	.T_MODE		= 0x02	; Text mode (bit 2)
+                    0002     89 	.T_MODE_OUT	= 0x02	; Text mode output only
+                    0003     90 	.T_MODE_INOUT	= 0x03	; Text mode with input
+                    0004     91 	.M_NO_SCROLL	= 0x04	; Disables scrolling of the screen in text mode
+                    0008     92 	.M_NO_INTERP	= 0x08	; Disables special character interpretation
+                             93 
+                             94 	
+                             95 	;; Status codes for IO
+                    0000     96 	.IO_IDLE	= 0x00
+                    0001     97 	.IO_SENDING	= 0x01
+                    0002     98 	.IO_RECEIVING	= 0x02
+                    0004     99 	.IO_ERROR	= 0x04
+                            100 
+                            101 	;; Type of IO data
+                    0066    102 	.DT_IDLE	= 0x66
+                    0055    103 	.DT_RECEIVING	= 0x55
+                            104 
+                            105 	;; Table of routines for modes
+                            106 	;.MODE_TABLE	= 0x01E0
+                    01E2    107     .MODE_TABLE	= 0x01E2
+                            108     
+                            109 	;; C related
+                            110 	;; Overheap of a banked call.  Used for parameters
+                            111 	;;  = ret + real ret + bank
+                            112 
+                    0001    113 	.if .NEAR_CALLS
+                    0002    114 	.BANKOV		= 2
+                            115 	.else
+                            116 	.BANKOV		= 6
+                            117 	.endif
+                            118 	
+                            119 	.globl	banked_call
+                            120 	.globl	banked_ret
+                            121 	
+                            122 	;; Global variables
+                            123 	.globl	.mode
+                            124 	.globl	__io_out
+                            125 	.globl	__io_in
+                            126 	.globl	__io_status
+                            127 
+                            128 	;; Global routines
+                            129 	.globl	.display_off
+                            130 	.globl	.wait_vbl_done
+                            131 
+                            132 	;; Interrupt routines 
+                            133 	.globl	.add_VBL
+                            134 	.globl	.add_LCD
+                            135 	.globl	.add_TIM
+                            136 	.globl	.add_SIO
+                            137 	.globl	.add_JOY
+                            138 
+                            139 	;; Symbols defined at link time
+                            140 	.globl	.STACK
+                            141 	.globl	.OAM
+                            142 	.globl	.refresh_OAM
+                            143 
+                            144 	;; Main user routine	
+                            145 	.globl	_main
+                              8 
+                              9 	.globl	.cr_curs
+                             10 	.globl	.adv_curs
+                             11 	.globl	.cury, .curx
+                             12 	.globl	.display_off
+                             13 
+                             14 	; Structure offsets
+                    0003     15 	sfont_handle_sizeof	=	3
+                    0001     16 	sfont_handle_font	=	1
+                    0000     17 	sfont_handle_first_tile	=	0
+                             18 
+                             19 	; Encoding types - lower 2 bits of font
+                    0000     20 	FONT_256ENCODING	=	0
+                    0001     21 	FONT_128ENCODING	=	1
+                    0002     22 	FONT_NOENCODING		=	2
+                             23 
+                             24 	; Other bits
+                    0002     25 	FONT_BCOMPRESSED	=	2
+                             26 	
+                    000A     27 	.CR     		= 	0x0A          ; Unix
+                    0000     28 	.SPACE			=	0x00
+                             29 
+                             30 	; Maximum number of fonts
+                    0006     31 	.MAX_FONTS		= 	6
+                             32 
+                             33 	.area	_HEADER (ABS)
+                             34 
+   01EA                      35 	.org	.MODE_TABLE+4*.T_MODE
+   01EA C3 85 02             36 	JP	.tmode
+                             37 
+                             38 	.module font.ms
+                             39 
+                             40 	; Globals from drawing.s
+                             41 	; FIXME: Hmmm... check the linkage of these
+                             42 	.globl	.fg_colour
+                             43 	.globl	.bg_colour
+                             44 
+                             45 	.area	_BSS
+                             46 	; The current font
+   0000                      47 font_current::
+   0000                      48 	.ds	sfont_handle_sizeof
+                             49 	; Cached copy of the first free tile
+   0003                      50 font_first_free_tile::
+   0003                      51 	.ds	1
+                             52 	; Table containing descriptors for all of the fonts
+   0004                      53 font_table::
+   0004                      54 	.ds	sfont_handle_sizeof*.MAX_FONTS
+                             55 	
+                             56 	.area   _BASE
+                             57 	; Copy uncompressed 16 byte tiles from (BC) to (HL), length = DE*2
+                             58 	; Note: HL must be aligned on a UWORD boundry
+   0000                      59 font_copy_uncompressed::
+   0000 7A                   60 	ld	a,d
+   0001 B3                   61 	or	e
+   0002 C8                   62 	ret	z
+                             63 
+   0003 7C                   64 	ld	a,h
+   0004 FE 98                65 	cp	#0x98
+   0006 38 03                66 	jr	c,4$
+   0008 D6 10                67 	sub	#0x98-0x88
+   000A 67                   68 	ld	h,a
+   000B                      69 4$:
+   000B AF                   70 	xor	a
+   000C BB                   71 	cp	e		; Special for when e=0 you will get another loop
+   000D 20 01                72 	jr	nz,1$
+   000F 15                   73 	dec	d
+   0010                      74 1$:
+                             75 	;WAIT_HBL
+   0010 F0 41                76 	ldh	a,(.STAT)
+   0012 CB 4F                77 	bit	1,a
+   0014 20 FA                78 	jr	nz,#.-4
+   0016 0A                   79 	ld	a,(bc)
+   0017 22                   80 	ld	(hl+),a
+   0018 03                   81 	inc	bc
+                             82 	
+                             83 	;WAIT_HBL
+   0019 F0 41                84 	ldh	a,(.STAT)
+   001B CB 4F                85 	bit	1,a
+   001D 20 FA                86 	jr	nz,#.-4
+   001F 0A                   87 	ld	a,(bc)
+   0020 77                   88 	ld	(hl),a
+   0021 03                   89 	inc	bc
+                             90 
+   0022 2C                   91 	inc	l
+   0023 20 08                92 	jr	nz,2$
+   0025 24                   93 	inc	h
+   0026 7C                   94 	ld	a,h		; Special wrap-around
+   0027 FE 98                95 	cp	#0x98
+   0029 20 02                96 	jr	nz,2$
+   002B 26 88                97 	ld	h,#0x88
+   002D                      98 2$:
+   002D 1D                   99 	dec	e
+   002E 20 E0               100 	jr	nz,1$
+   0030 15                  101 	dec	d
+   0031 CB 7A               102 	bit	7,d		; -1?
+   0033 28 DB               103 	jr	z,1$
+   0035 C9                  104 	ret
+                            105 
+                            106 	; Copy a set of compressed (8 bytes/cell) tiles to VRAM
+                            107 	; Sets the foreground and background colours based on the current
+                            108 	; font colours
+                            109 	; Entry:
+                            110 	;	From (BC) to (HL), length (DE) where DE = #cells * 8
+                            111 	;	Uses the current fg_colour and bg_colour fields
+   0036                     112 font_copy_compressed::
+   0036 7A                  113 	ld	a,d
+   0037 B3                  114 	or	e
+   0038 C8                  115 	ret	z		; Do nothing
+                            116 
+   0039 7C                  117 	ld	a,h
+   003A FE 98               118 	cp	#0x98		; Take care of the 97FF -> 8800 wrap around
+   003C 38 03               119 	jr	c,font_copy_compressed_loop
+   003E D6 10               120 	sub	#0x98-0x88
+   0040 67                  121 	ld	h,a
+   0041                     122 font_copy_compressed_loop:
+   0041 D5                  123 	push	de
+   0042 0A                  124 	ld	a,(bc)
+   0043 5F                  125 	ld	e,a
+   0044 03                  126 	inc	bc
+   0045 C5                  127 	push	bc
+                            128 
+   0046 01 00 00            129 	ld	bc,#0
+                            130 				; Do the background colour first
+   0049 FA 00 00            131 	ld	a,(.bg_colour)
+   004C CB 47               132 	bit	0,a
+   004E 28 02               133 	jr	z,font_copy_compressed_bg_grey1
+   0050 06 FF               134 	ld	b,#0xFF
+   0052                     135 font_copy_compressed_bg_grey1:
+   0052 CB 4F               136 	bit	1,a
+   0054 28 02               137 	jr	z,font_copy_compressed_bg_grey2
+   0056 0E FF               138 	ld	c,#0xFF
+   0058                     139 font_copy_compressed_bg_grey2:
+                            140 	; BC contains the background colour
+                            141 	; Compute what xoring we need to do to get the correct fg colour
+   0058 57                  142 	ld	d,a
+   0059 FA 00 00            143 	ld	a,(.fg_colour)
+   005C AA                  144 	xor	d
+   005D 57                  145 	ld	d,a
+                            146 
+   005E CB 42               147 	bit	0,d
+   0060 28 03               148 	jr	z,font_copy_compressed_grey1
+   0062 7B                  149 	ld	a,e
+   0063 A8                  150 	xor	b
+   0064 47                  151 	ld	b,a
+   0065                     152 font_copy_compressed_grey1:
+   0065 CB 4A               153 	bit	1,d
+   0067 28 03               154 	jr	z,font_copy_compressed_grey2
+   0069 7B                  155 	ld	a,e
+   006A A9                  156 	xor	c
+   006B 4F                  157 	ld	c,a
+   006C                     158 font_copy_compressed_grey2:
+                            159 	;WAIT_HBL
+   006C F0 41               160 	ldh	a,(.STAT)
+   006E CB 4F               161 	bit	1,a
+   0070 20 FA               162 	jr	nz,#.-4
+   0072 70                  163 	ld	(hl),b
+   0073 23                  164 	inc	hl
+                            165 	;WAIT_HBL
+   0074 F0 41               166 	ldh	a,(.STAT)
+   0076 CB 4F               167 	bit	1,a
+   0078 20 FA               168 	jr	nz,#.-4
+   007A 71                  169 	ld	(hl),c
+   007B 23                  170 	inc	hl
+   007C 7C                  171 	ld	a,h		; Take care of the 97FFF -> 8800 wrap around
+   007D FE 98               172 	cp	#0x98
+   007F 20 02               173 	jr	nz,1$
+   0081 26 88               174 	ld	h,#0x88
+   0083                     175 1$:
+   0083 C1                  176 	pop	bc
+   0084 D1                  177 	pop	de
+   0085 1B                  178 	dec	de
+   0086 7A                  179 	ld	a,d
+   0087 B3                  180 	or	e
+   0088 20 B7               181 	jr	nz,font_copy_compressed_loop
+   008A C9                  182 	ret
+                            183 	
+                            184 ; Load the font HL
+   008B                     185 font_load::
+   008B CD 00 00            186 	call	.display_off
+   008E E5                  187 	push	hl
+                            188 
+                            189 	; Find the first free font entry
+   008F 21 05 00            190 	ld	hl,#font_table+sfont_handle_font
+   0092 06 06               191 	ld	b,#.MAX_FONTS
+   0094                     192 font_load_find_slot:
+   0094 7E                  193 	ld	a,(hl)		; Check to see if this entry is free
+   0095 23                  194 	inc	hl		; Free is 0000 for the font pointer
+   0096 B6                  195 	or	(hl)
+   0097 FE 00               196 	cp	#0
+   0099 28 0B               197 	jr	z,font_load_found
+                            198 
+   009B 23                  199 	inc	hl
+   009C 23                  200 	inc	hl
+   009D 05                  201 	dec	b
+   009E 20 F4               202 	jr	nz,font_load_find_slot
+   00A0 E1                  203 	pop	hl
+   00A1 21 00 00            204 	ld	hl,#0
+   00A4 18 24               205 	jr	font_load_exit	; Couldn't find a free space
+   00A6                     206 font_load_found:
+                            207 				; HL points to the end of the free font table entry
+   00A6 D1                  208 	pop	de
+   00A7 72                  209 	ld	(hl),d		; Copy across the font struct pointer
+   00A8 2B                  210 	dec	hl
+   00A9 73                  211 	ld	(hl),e
+                            212 
+   00AA FA 03 00            213 	ld	a,(font_first_free_tile)
+   00AD 2B                  214 	dec	hl
+   00AE 77                  215 	ld	(hl),a		
+                            216 
+   00AF E5                  217 	push	hl
+   00B0 CD 1B 01            218 	call	font_set	; Set this new font to be the default
+                            219 	
+                            220 	; Only copy the tiles in if were in text mode
+   00B3 FA 00 00            221 	ld	a,(.mode)
+   00B6 E6 02               222 	and	#.T_MODE
+                            223 	
+   00B8 C4 D3 00            224 	call	nz,font_copy_current
+                            225 
+                            226 				; Increase the 'first free tile' counter
+   00BB 21 01 00            227 	ld	hl,#font_current+sfont_handle_font
+   00BE 2A                  228 	ld	a,(hl+)
+   00BF 66                  229 	ld	h,(hl)
+   00C0 6F                  230 	ld	l,a
+                            231 
+   00C1 23                  232 	inc	hl		; Number of tiles used
+   00C2 FA 03 00            233 	ld	a,(font_first_free_tile)
+   00C5 86                  234 	add	a,(hl)
+   00C6 EA 03 00            235 	ld	(font_first_free_tile),a
+                            236 
+   00C9 E1                  237 	pop	hl		; Return font setup in HL
+   00CA                     238 font_load_exit:
+                            239 	;; Turn the screen on
+   00CA F0 40               240 	LDH     A,(.LCDC)
+   00CC F6 81               241 	OR      #0b10000001     ; LCD           = On
+                            242 				; BG            = On
+   00CE E6 E7               243 	AND     #0b11100111     ; BG Chr        = 0x8800
+                            244 				; BG Bank       = 0x9800
+   00D0 E0 40               245 	LDH     (.LCDC),A
+                            246 
+   00D2 C9                  247 	RET
+                            248 
+                            249 	; Copy the tiles from the current font into VRAM
+   00D3                     250 font_copy_current::	
+                            251 				; Find the current font data
+   00D3 21 01 00            252 	ld	hl,#font_current+sfont_handle_font
+   00D6 2A                  253 	ld	a,(hl+)
+   00D7 66                  254 	ld	h,(hl)
+   00D8 6F                  255 	ld	l,a
+                            256 
+   00D9 23                  257 	inc	hl		; Points to the 'tiles required' entry
+   00DA 5E                  258 	ld	e,(hl)
+   00DB 16 00               259 	ld	d,#0
+   00DD CB 13               260 	rl	e		; Multiple DE by 8
+   00DF CB 12               261 	rl	d
+   00E1 CB 13               262 	rl	e
+   00E3 CB 12               263 	rl	d
+   00E5 CB 13               264 	rl	e
+   00E7 CB 12               265 	rl	d		; DE has the length of the tile data
+   00E9 2B                  266 	dec	hl
+                            267 
+   00EA 7E                  268 	ld	a,(hl)		; Get the flags
+   00EB F5                  269 	push	af		
+   00EC E6 03               270 	and	#3			; Only lower 2 bits set encoding table size
+                            271 
+   00EE 01 80 00            272 	ld	bc,#128
+   00F1 FE 01               273 	cp	#FONT_128ENCODING	; 0 for 256 char encoding table, 1 for 128 char
+   00F3 28 0A               274 	jr	z,font_copy_current_copy
+                            275 
+   00F5 01 00 00            276 	ld	bc,#0
+   00F8 FE 02               277 	cp	#FONT_NOENCODING
+   00FA 28 03               278 	jr	z,font_copy_current_copy
+                            279 
+   00FC 01 00 01            280 	ld	bc,#256			; Must be 256 element encoding
+   00FF                     281 font_copy_current_copy:
+   00FF 23                  282 	inc	hl
+   0100 23                  283 	inc	hl		; Points to the start of the encoding table
+   0101 09                  284 	add	hl,bc		
+   0102 4D                  285 	ld	c,l
+   0103 44                  286 	ld	b,h		; BC points to the start of the tile data		
+                            287 
+                            288 	; Find the offset in VRAM for this font
+   0104 FA 00 00            289 	ld	a,(font_current+sfont_handle_first_tile)	; First tile used for this font
+   0107 6F                  290 	ld	l,a		
+   0108 26 00               291 	ld	h,#0
+   010A 29                  292 	add	hl,hl
+   010B 29                  293 	add	hl,hl
+   010C 29                  294 	add	hl,hl
+   010D 29                  295 	add	hl,hl
+                            296 
+   010E 3E 90               297 	ld	a,#0x90		; Tile 0 is at 9000h
+   0110 84                  298 	add	a,h
+   0111 67                  299 	ld	h,a
+                            300 				; Is this font compressed?
+   0112 F1                  301 	pop	af		; Recover flags
+   0113 CB 57               302 	bit	FONT_BCOMPRESSED,a
+                            303 				; Do the jump in a mildly different way
+   0115 CA 00 00            304 	jp	z,font_copy_uncompressed
+   0118 C3 36 00            305 	jp	font_copy_compressed
+                            306 
+                            307 	; Set the current font to HL
+   011B                     308 font_set::
+   011B 2A                  309 	ld	a,(hl+)
+   011C EA 00 00            310 	ld	(font_current),a
+   011F 2A                  311 	ld	a,(hl+)
+   0120 EA 01 00            312 	ld	(font_current+1),a
+   0123 2A                  313 	ld	a,(hl+)
+   0124 EA 02 00            314 	ld	(font_current+2),a
+   0127 C9                  315 	ret
+                            316 	
+                            317 	;; Print a character with interpretation
+   0128                     318 .put_char::
+                            319 	; See if it's a special char
+   0128 FE 0A               320 	cp	#.CR
+   012A 20 0E               321 	jr	nz,1$
+                            322 
+                            323 	; Now see if were checking special chars
+   012C F5                  324 	push	af
+   012D FA 00 00            325 	ld	a,(.mode)
+   0130 E6 08               326 	and	#.M_NO_INTERP
+   0132 20 05               327 	jr	nz,2$
+   0134 CD 14 02            328 	call	.cr_curs
+   0137 F1                  329 	pop	af
+   0138 C9                  330 	ret
+   0139                     331 2$:
+   0139 F1                  332 	pop	af
+   013A                     333 1$:
+   013A CD 51 01            334 	CALL    .set_char
+   013D CD 29 02            335 	CALL    .adv_curs
+   0140 C9                  336 	RET
+                            337 
+                            338 	;; Print a character without interpretation
+   0141                     339 .out_char::
+   0141 CD 51 01            340 	CALL	.set_char
+   0144 CD 29 02            341 	CALL	.adv_curs
+   0147 C9                  342 	RET
+                            343 
+                            344 	;; Delete a character
+   0148                     345 .del_char::
+   0148 CD FD 01            346 	CALL	.rew_curs
+   014B 3E 00               347 	LD	A,#.SPACE
+   014D CD 51 01            348 	CALL	.set_char
+   0150 C9                  349 	RET
+                            350 
+                            351 	;; Print the character in A
+   0151                     352 .set_char:
+   0151 F5                  353 	push	af
+   0152 FA 02 00            354 	ld	a,(font_current+2)
+                            355 	; Must be non-zero if the font system is setup (cant have a font in page zero)
+   0155 B7                  356 	or	a
+   0156 20 0E               357 	jr	nz,3$
+                            358 
+                            359 	; Font system is not yet setup - init it and copy in the ibm font
+                            360 	; Kind of a compatibility mode
+   0158 CD C0 01            361 	call	_font_init
+                            362 	
+                            363 	; Need all of the tiles
+   015B AF                  364 	xor	a
+   015C EA 03 00            365 	ld	(font_first_free_tile),a
+                            366 
+                            367 	.globl	_font_load_ibm_fixed
+   015F CD 00 00            368 	call	banked_call
+   0162 00 00               369 	.dw	_font_load_ibm_fixed
+                    0000    370 	.if __RGBDS__
+                            371 	.dw	BANK(_font_load_ibm_fixed);
+                            372 	.else
+   0164 00 00               373 	.dw	0
+                            374 	.endif
+   0166                     375 3$:
+   0166 F1                  376 	pop	af
+   0167 C5                  377 	push	bc
+   0168 D5                  378 	push	de
+   0169 E5                  379 	push	hl
+                            380 				; Compute which tile maps to this character
+   016A 5F                  381 	ld	e,a
+   016B 21 01 00            382 	ld	hl,#font_current+sfont_handle_font
+   016E 2A                  383 	ld	a,(hl+)
+   016F 66                  384 	ld	h,(hl)
+   0170 6F                  385 	ld	l,a
+   0171 2A                  386 	ld	a,(hl+)
+   0172 E6 03               387 	and	#3
+   0174 FE 02               388 	cp	#FONT_NOENCODING
+   0176 28 05               389 	jr	z,set_char_no_encoding
+   0178 23                  390 	inc	hl
+                            391 				; Now at the base of the encoding table
+                            392 				; E is set above
+   0179 16 00               393 	ld	d,#0
+   017B 19                  394 	add	hl,de
+   017C 5E                  395 	ld	e,(hl)		; That's the tile!
+   017D                     396 set_char_no_encoding:
+   017D FA 00 00            397 	ld	a,(font_current+0)
+   0180 83                  398 	add	a,e
+   0181 5F                  399 	ld	e,a
+                            400 
+   0182 FA 17 00            401 	LD      A,(.cury)       ; Y coordinate
+   0185 6F                  402 	LD      L,A
+   0186 26 00               403 	LD      H,#0x00
+   0188 29                  404 	ADD     HL,HL
+   0189 29                  405 	ADD     HL,HL
+   018A 29                  406 	ADD     HL,HL
+   018B 29                  407 	ADD     HL,HL
+   018C 29                  408 	ADD     HL,HL
+   018D FA 16 00            409 	LD      A,(.curx)       ; X coordinate
+   0190 4F                  410 	LD      C,A
+   0191 06 00               411 	LD      B,#0x00
+   0193 09                  412 	ADD     HL,BC
+   0194 01 00 98            413 	LD      BC,#0x9800
+   0197 09                  414 	ADD     HL,BC
+                            415 
+                            416 	;WAIT_HBL
+   0198 F0 41               417 	ldh	a,(.STAT)
+   019A CB 4F               418 	bit	1,a
+   019C 20 FA               419 	jr	nz,#.-4
+   019E 73                  420 	LD      (HL),E
+   019F E1                  421 	POP     HL
+   01A0 D1                  422 	POP     DE
+   01A1 C1                  423 	POP     BC
+   01A2 C9                  424 	RET
+                            425 
+                            426 	.area	_CODE
+   0000                     427 _putchar::			; Banked
+   0000 C5                  428 	PUSH	BC
+   0001 F8 04               429 	LDA     HL,.BANKOV+2(SP); Skip return address
+   0003 7E                  430 	LD      A,(HL)          ; A = c
+   0004 CD 28 01            431 	CALL    .put_char
+   0007 C1                  432 	POP	BC
+   0008 C9                  433 	RET
+                            434 
+   0009                     435 _setchar::			; Banked
+   0009 C5                  436 	PUSH	BC
+   000A F8 04               437 	LDA     HL,.BANKOV+2(SP); Skip return address
+   000C 7E                  438 	LD      A,(HL)          ; A = c
+   000D CD 51 01            439 	CALL    .set_char
+   0010 C1                  440 	POP	BC
+   0011 C9                  441 	RET
+                            442 
+                            443 	.area	_BASE
+   01A3                     444 _font_load::
+   01A3 C5                  445 	push	bc
+   01A4 F8 04               446 	LDA     HL,4(SP)        ; Skip return address and bc
+   01A6 7E                  447 	LD      A,(HL)          ; A = c
+   01A7 23                  448 	inc	hl
+   01A8 66                  449 	ld	h,(hl)
+   01A9 6F                  450 	ld	l,a
+   01AA CD 8B 00            451 	call    font_load
+   01AD E5                  452 	push	hl
+   01AE D1                  453 	pop	de		; Return in DE
+   01AF C1                  454 	pop	bc
+   01B0 C9                  455 	RET
+                            456 
+   01B1                     457 _font_set::
+   01B1 C5                  458 	push	bc
+   01B2 F8 04               459 	LDA     HL,4(SP)        ; Skip return address
+   01B4 7E                  460 	LD      A,(HL)          ; A = c
+   01B5 23                  461 	inc	hl
+   01B6 66                  462 	ld	h,(hl)
+   01B7 6F                  463 	ld	l,a
+   01B8 CD 1B 01            464 	call	font_set
+   01BB C1                  465 	pop	bc
+   01BC 11 00 00            466 	ld	de,#0		; Always good...
+   01BF C9                  467 	RET
+                            468 
+   01C0                     469 _font_init::
+   01C0 C5                  470 	push	bc
+                            471 	.globl	.tmode
+                            472 
+   01C1 CD 85 02            473 	call	.tmode
+                            474 
+   01C4 3E 01               475 	ld	a,#1		; We use the first tile as a space _always_
+   01C6 EA 03 00            476 	ld	(font_first_free_tile),a
+                            477 
+                            478 	; Clear the font table
+   01C9 AF                  479 	xor	a
+   01CA 21 04 00            480 	ld	hl,#font_table
+   01CD 06 12               481 	ld	b,#sfont_handle_sizeof*.MAX_FONTS
+   01CF                     482 1$:
+   01CF 22                  483 	ld	(hl+),a
+   01D0 05                  484 	dec	b
+   01D1 20 FC               485 	jr	nz,1$
+   01D3 3E 03               486 	ld	a,#3
+   01D5 EA 00 00            487 	ld	(.fg_colour),a
+   01D8 3E 00               488 	ld	a,#0
+   01DA EA 00 00            489 	ld	(.bg_colour),a
+                            490 
+   01DD CD E2 01            491 	call	.cls
+   01E0 C1                  492 	pop	bc
+   01E1 C9                  493 	ret
+                            494 	
+   01E2                     495 _cls::
+   01E2                     496 .cls::	
+   01E2 D5                  497 	PUSH	DE
+   01E3 E5                  498 	PUSH	HL
+   01E4 21 00 98            499 	LD	HL,#0x9800
+   01E7 1E 20               500 	LD	E,#0x20		; E = height
+   01E9                     501 1$:
+   01E9 16 20               502 	LD	D,#0x20		; D = width
+   01EB                     503 2$:
+                            504 	;WAIT_HBL
+   01EB F0 41               505 	ldh	a,(.STAT)
+   01ED CB 4F               506 	bit	1,a
+   01EF 20 FA               507 	jr	nz,#.-4
+                            508 
+   01F1 36 00               509 	LD	(HL),#.SPACE	; Always clear
+   01F3 23                  510 	INC	HL
+   01F4 15                  511 	DEC	D
+   01F5 20 F4               512 	JR	NZ,2$
+   01F7 1D                  513 	DEC	E
+   01F8 20 EF               514 	JR	NZ,1$
+   01FA E1                  515 	POP	HL
+   01FB D1                  516 	POP	DE
+   01FC C9                  517 	RET
+                            518 
+                            519 	.area	_CODE
+                            520 	; Support routines
+   0012                     521 _gotoxy::			; Banked
+   0012 F8 02               522 	lda	hl,.BANKOV(sp)
+   0014 2A                  523 	ld	a,(hl+)
+   0015 EA 16 00            524 	ld	(.curx),a
+   0018 7E                  525 	ld	a,(hl)
+   0019 EA 17 00            526 	ld	(.cury),a
+   001C C9                  527 	ret
+                            528 
+   001D                     529 _posx::
+   001D FA 00 00            530 	LD	A,(.mode)	; Banked
+   0020 E6 02               531 	AND	#.T_MODE
+   0022 20 05               532 	JR	NZ,1$
+   0024 C5                  533 	PUSH	BC
+   0025 CD 85 02            534 	CALL	.tmode
+   0028 C1                  535 	POP	BC
+   0029                     536 1$:
+   0029 FA 16 00            537 	LD	A,(.curx)
+   002C 5F                  538 	LD	E,A
+   002D C9                  539 	RET
+                            540 
+   002E                     541 _posy::				; Banked
+   002E FA 00 00            542 	LD	A,(.mode)
+   0031 E6 02               543 	AND	#.T_MODE
+   0033 20 05               544 	JR	NZ,1$
+   0035 C5                  545 	PUSH	BC
+   0036 CD 85 02            546 	CALL	.tmode
+   0039 C1                  547 	POP	BC
+   003A                     548 1$:
+   003A FA 17 00            549 	LD	A,(.cury)
+   003D 5F                  550 	LD	E,A
+   003E C9                  551 	RET
+                            552 
+                            553 	.area	_BASE
+                            554 	;; Rewind the cursor
+   01FD                     555 .rew_curs:
+   01FD E5                  556 	PUSH	HL
+   01FE 21 16 00            557 	LD	HL,#.curx	; X coordinate
+   0201 AF                  558 	XOR	A
+   0202 BE                  559 	CP	(HL)
+   0203 28 03               560 	JR	Z,1$
+   0205 35                  561 	DEC	(HL)
+   0206 18 0A               562 	JR	99$
+   0208                     563 1$:
+   0208 36 13               564 	LD	(HL),#.MAXCURSPOSX
+   020A 21 17 00            565 	LD	HL,#.cury	; Y coordinate
+   020D AF                  566 	XOR	A
+   020E BE                  567 	CP	(HL)
+   020F 28 01               568 	JR	Z,99$
+   0211 35                  569 	DEC	(HL)
+   0212                     570 99$:
+   0212 E1                  571 	POP	HL
+   0213 C9                  572 	RET
+                            573 
+   0214                     574 .cr_curs::
+   0214 E5                  575 	PUSH	HL
+   0215 AF                  576 	XOR	A
+   0216 EA 16 00            577 	LD	(.curx),A
+   0219 21 17 00            578 	LD	HL,#.cury	; Y coordinate
+   021C 3E 11               579 	LD	A,#.MAXCURSPOSY
+   021E BE                  580 	CP	(HL)
+   021F 28 03               581 	JR	Z,2$
+   0221 34                  582 	INC	(HL)
+   0222 18 03               583 	JR	99$
+   0224                     584 2$:
+   0224 CD 57 02            585 	CALL	.scroll
+   0227                     586 99$:
+   0227 E1                  587 	POP	HL
+   0228 C9                  588 	RET
+                            589 
+   0229                     590 .adv_curs::
+   0229 E5                  591 	PUSH	HL
+   022A 21 16 00            592 	LD	HL,#.curx	; X coordinate
+   022D 3E 13               593 	LD	A,#.MAXCURSPOSX
+   022F BE                  594 	CP	(HL)
+   0230 28 03               595 	JR	Z,1$
+   0232 34                  596 	INC	(HL)
+   0233 18 20               597 	JR	99$
+   0235                     598 1$:
+   0235 36 00               599 	LD	(HL),#0x00
+   0237 21 17 00            600 	LD	HL,#.cury	; Y coordinate
+   023A 3E 11               601 	LD	A,#.MAXCURSPOSY
+   023C BE                  602 	CP	(HL)
+   023D 28 03               603 	JR	Z,2$
+   023F 34                  604 	INC	(HL)
+   0240 18 13               605 	JR	99$
+   0242                     606 2$:
+                            607 	;; See if scrolling is disabled
+   0242 FA 00 00            608 	LD	A,(.mode)
+   0245 E6 04               609 	AND	#.M_NO_SCROLL
+   0247 28 09               610 	JR	Z,3$
+                            611 	;; Nope - reset the cursor to (0,0)
+   0249 AF                  612 	XOR	A
+   024A EA 17 00            613 	LD	(.cury),A
+   024D EA 16 00            614 	LD	(.curx),A
+   0250 18 03               615 	JR	99$
+   0252                     616 3$:	
+   0252 CD 57 02            617 	CALL	.scroll
+   0255                     618 99$:
+   0255 E1                  619 	POP	HL
+   0256 C9                  620 	RET
+                            621 
+                            622 	;; Scroll the whole screen
+   0257                     623 .scroll:
+   0257 C5                  624 	PUSH	BC
+   0258 D5                  625 	PUSH	DE
+   0259 E5                  626 	PUSH	HL
+   025A 21 00 98            627 	LD	HL,#0x9800
+   025D 01 20 98            628 	LD	BC,#0x9800+0x20 ; BC = next line
+   0260 1E 1F               629 	LD	E,#0x20-0x01	; E = height - 1
+   0262                     630 1$:
+   0262 16 20               631 	LD	D,#0x20		; D = width
+   0264                     632 2$:
+   0264 F0 41               633 	LDH	A,(.STAT)
+   0266 E6 02               634 	AND	#0x02
+   0268 20 FA               635 	JR	NZ,2$
+                            636 
+   026A 0A                  637 	LD	A,(BC)
+   026B 22                  638 	LD	(HL+),A
+   026C 03                  639 	INC	BC
+   026D 15                  640 	DEC	D
+   026E 20 F4               641 	JR	NZ,2$
+   0270 1D                  642 	DEC	E
+   0271 20 EF               643 	JR	NZ,1$
+                            644 
+   0273 16 20               645 	LD	D,#0x20
+   0275                     646 3$:
+   0275 F0 41               647 	LDH	A,(.STAT)
+   0277 E6 02               648 	AND	#0x02
+   0279 20 FA               649 	JR	NZ,3$
+                            650 
+   027B 3E 00               651 	LD	A,#.SPACE
+   027D 22                  652 	LD	(HL+),A
+   027E 15                  653 	DEC	D
+   027F 20 F4               654 	JR	NZ,3$
+   0281 E1                  655 	POP	HL
+   0282 D1                  656 	POP	DE
+   0283 C1                  657 	POP	BC
+   0284 C9                  658 	RET
+                            659 
+                            660 	.area	_BSS
+   0016                     661 .curx::				; Cursor position
+   0016                     662 	.ds	0x01
+   0017                     663 .cury::
+   0017                     664 	.ds	0x01
+                            665 
+                            666 	.area	_BASE
+                            667 
+                            668 	.globl	.vbl
+                            669 	.globl	.lcd
+                            670 	.globl	.int_0x40
+                            671 	.globl	.int_0x48
+                            672 	.globl	.remove_int
+                            673 
+                            674 	;; Enter text mode
+   0285                     675 .tmode::
+   0285 F3                  676 	DI			; Disable interrupts
+                            677 
+                            678 	;; Turn the screen off
+   0286 F0 40               679 	LDH	A,(.LCDC)
+   0288 CB 7F               680 	BIT	7,A
+   028A 28 15               681 	JR	Z,1$
+                            682 
+                            683 	;; Turn the screen off
+   028C CD 00 00            684 	CALL	.display_off
+                            685 
+                            686 	;; Remove any interrupts setup by the drawing routine
+   028F 01 00 00            687 	LD	BC,#.vbl
+   0292 21 00 00            688 	LD	HL,#.int_0x40
+   0295 CD 00 00            689 	CALL	.remove_int
+   0298 01 00 00            690 	LD	BC,#.lcd
+   029B 21 00 00            691 	LD	HL,#.int_0x48
+   029E CD 00 00            692 	CALL	.remove_int
+   02A1                     693 1$:
+                            694 
+   02A1 CD AE 02            695 	CALL	.tmode_out
+                            696 
+                            697 	;; Turn the screen on
+   02A4 F0 40               698 	LDH	A,(.LCDC)
+   02A6 F6 81               699 	OR	#0b10000001	; LCD		= On
+                            700 				; BG		= On
+   02A8 E6 E7               701 	AND	#0b11100111	; BG Chr	= 0x8800
+                            702 				; BG Bank	= 0x9800
+   02AA E0 40               703 	LDH	(.LCDC),A
+                            704 
+   02AC FB                  705 	EI			; Enable interrupts
+                            706 
+   02AD C9                  707 	RET
+                            708 
+                            709 	;; Text mode (out only)
+   02AE                     710 .tmode_out::
+   02AE AF                  711 	XOR	A
+   02AF EA 16 00            712 	LD	(.curx),A
+   02B2 EA 17 00            713 	LD	(.cury),A
+                            714 
+                            715 	;; Clear screen
+   02B5 CD E2 01            716 	CALL	.cls
+                            717 
+   02B8 3E 02               718 	LD	A,#.T_MODE
+   02BA EA 00 00            719 	LD	(.mode),A
+                            720 
+   02BD C9                  721 	RET
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+    .A                                                          =  0010 
+    .B                                                          =  0020 
+    .BANKOV                                                     =  0002 
+    .BCPD                                                       =  0069 
+    .BCPS                                                       =  0068 
+    .BGP                                                        =  0047 
+    .CR                                                         =  000A 
+    .DIV                                                        =  0004 
+    .DMA                                                        =  0046 
+    .DOWN                                                       =  0008 
+    .DT_IDLE                                                    =  0066 
+    .DT_RECEIVING                                               =  0055 
+    .G_MODE                                                     =  0001 
+    .HDMA1                                                      =  0051 
+    .HDMA2                                                      =  0052 
+    .HDMA3                                                      =  0053 
+    .HDMA4                                                      =  0054 
+    .HDMA5                                                      =  0055 
+    .IE                                                         =  00FF 
+    .IF                                                         =  000F 
+    .IO_ERROR                                                   =  0004 
+    .IO_IDLE                                                    =  0000 
+    .IO_RECEIVING                                               =  0002 
+    .IO_SENDING                                                 =  0001 
+    .JOY_IFLAG                                                  =  0010 
+    .KEY1                                                       =  004D 
+    .LCDC                                                       =  0040 
+    .LCD_IFLAG                                                  =  0002 
+    .LEFT                                                       =  0002 
+    .LY                                                         =  0044 
+    .LYC                                                        =  0045 
+    .MAXCURSPOSX                                                =  0013 
+    .MAXCURSPOSY                                                =  0011 
+    .MAXWNDPOSX                                                 =  00A6 
+    .MAXWNDPOSY                                                 =  008F 
+    .MAX_FONTS                                                  =  0006 
+    .MINWNDPOSX                                                 =  0007 
+    .MINWNDPOSY                                                 =  0000 
+    .MODE_TABLE                                                 =  01E2 
+    .M_NO_INTERP                                                =  0008 
+    .M_NO_SCROLL                                                =  0004 
+    .NEAR_CALLS                                                 =  0001 
+    .NR10                                                       =  0010 
+    .NR11                                                       =  0011 
+    .NR12                                                       =  0012 
+    .NR13                                                       =  0013 
+    .NR14                                                       =  0014 
+    .NR21                                                       =  0016 
+    .NR22                                                       =  0017 
+    .NR23                                                       =  0018 
+    .NR24                                                       =  0019 
+    .NR30                                                       =  001A 
+    .NR31                                                       =  001B 
+    .NR32                                                       =  001C 
+    .NR33                                                       =  001D 
+    .NR34                                                       =  001E 
+    .NR41                                                       =  0020 
+    .NR42                                                       =  0021 
+    .NR43                                                       =  0022 
+    .NR44                                                       =  0023 
+    .NR50                                                       =  0024 
+    .NR51                                                       =  0025 
+    .NR52                                                       =  0026 
+    .OAM                                                           **** GX
+    .OBP0                                                       =  0048 
+    .OBP1                                                       =  0049 
+    .OCPD                                                       =  006B 
+    .OCPS                                                       =  006A 
+    .P1                                                         =  0000 
+    .RIGHT                                                      =  0001 
+    .RP                                                         =  0056 
+    .SB                                                         =  0001 
+    .SC                                                         =  0002 
+    .SCREENHEIGHT                                               =  0090 
+    .SCREENWIDTH                                                =  00A0 
+    .SCX                                                        =  0043 
+    .SCY                                                        =  0042 
+    .SELECT                                                     =  0040 
+    .SIO_IFLAG                                                  =  0008 
+    .SPACE                                                      =  0000 
+    .STACK                                                         **** GX
+    .START                                                      =  0080 
+    .STAT                                                       =  0041 
+    .SVBK                                                       =  0070 
+    .TAC                                                        =  0007 
+    .TIMA                                                       =  0005 
+    .TIM_IFLAG                                                  =  0004 
+    .TMA                                                        =  0006 
+    .T_MODE                                                     =  0002 
+    .T_MODE_INOUT                                               =  0003 
+    .T_MODE_OUT                                                 =  0002 
+    .UP                                                         =  0004 
+    .VBK                                                        =  004F 
+    .VBL_IFLAG                                                  =  0001 
+    .WX                                                         =  004B 
+    .WY                                                         =  004A 
+    .add_JOY                                                       **** GX
+    .add_LCD                                                       **** GX
+    .add_SIO                                                       **** GX
+    .add_TIM                                                       **** GX
+    .add_VBL                                                       **** GX
+  3 .adv_curs                                                      0229 GR
+    .bg_colour                                                     **** GX
+  3 .cls                                                           01E2 GR
+  3 .cr_curs                                                       0214 GR
+  2 .curx                                                          0016 GR
+  2 .cury                                                          0017 GR
+  3 .del_char                                                      0148 GR
+    .display_off                                                   **** GX
+    .fg_colour                                                     **** GX
+    .int_0x40                                                      **** GX
+    .int_0x48                                                      **** GX
+    .lcd                                                           **** GX
+    .mode                                                          **** GX
+  3 .out_char                                                      0141 GR
+  3 .put_char                                                      0128 GR
+    .refresh_OAM                                                   **** GX
+    .remove_int                                                    **** GX
+  3 .rew_curs                                                      01FD R
+  3 .scroll                                                        0257 R
+  3 .set_char                                                      0151 R
+  3 .tmode                                                         0285 GR
+  3 .tmode_out                                                     02AE GR
+    .vbl                                                           **** GX
+    .wait_vbl_done                                                 **** GX
+    FONT_128ENCODING                                            =  0001 
+    FONT_256ENCODING                                            =  0000 
+    FONT_BCOMPRESSED                                            =  0002 
+    FONT_NOENCODING                                             =  0002 
+    __RGBDS__                                                   =  0000 
+    __io_in                                                        **** GX
+    __io_out                                                       **** GX
+    __io_status                                                    **** GX
+  3 _cls                                                           01E2 GR
+  3 _font_init                                                     01C0 GR
+  3 _font_load                                                     01A3 GR
+    _font_load_ibm_fixed                                           **** GX
+  3 _font_set                                                      01B1 GR
+  0 _gotoxy                                                        0012 GR
+    _main                                                          **** GX
+  0 _posx                                                          001D GR
+  0 _posy                                                          002E GR
+  0 _putchar                                                       0000 GR
+  0 _setchar                                                       0009 GR
+    banked_call                                                    **** GX
+    banked_ret                                                     **** GX
+  3 font_copy_compressed                                           0036 GR
+  3 font_copy_compressed_bg_grey1                                  0052 R
+  3 font_copy_compressed_bg_grey2                                  0058 R
+  3 font_copy_compressed_grey1                                     0065 R
+  3 font_copy_compressed_grey2                                     006C R
+  3 font_copy_compressed_loop                                      0041 R
+  3 font_copy_current                                              00D3 GR
+  3 font_copy_current_copy                                         00FF R
+  3 font_copy_uncompressed                                         0000 GR
+  2 font_current                                                   0000 GR
+  2 font_first_free_tile                                           0003 GR
+  3 font_load                                                      008B GR
+  3 font_load_exit                                                 00CA R
+  3 font_load_find_slot                                            0094 R
+  3 font_load_found                                                00A6 R
+  3 font_set                                                       011B GR
+  2 font_table                                                     0004 GR
+  3 set_char_no_encoding                                           017D R
+    sfont_handle_first_tile                                     =  0000 
+    sfont_handle_font                                           =  0001 
+    sfont_handle_sizeof                                         =  0003 
+
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                                                          size   3F   flags 0
+   1 _HEADER                                                        size  1ED   flags 8
+   2 _BSS                                                           size   18   flags 0
+   3 _BASE                                                          size  2BE   flags 0

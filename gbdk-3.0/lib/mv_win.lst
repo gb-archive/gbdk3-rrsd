@@ -1,0 +1,278 @@
+                              1 	.include	"global.s"
+                    0001      1 	.NEAR_CALLS = 1
+                              2 	;; Changed by astorgb.pl to 1
+                    0000      3 	__RGBDS__	= 0
+                              4 
+                              5 	;;  Screen dimensions 
+                    0013      6 	.MAXCURSPOSX	= 0x13	; In tiles
+                    0011      7 	.MAXCURSPOSY	= 0x11
+                              8 
+                    0080      9 	.START		= 0x80
+                    0040     10 	.SELECT		= 0x40
+                    0020     11 	.B		= 0x20
+                    0010     12 	.A		= 0x10
+                    0008     13 	.DOWN		= 0x08
+                    0004     14 	.UP		= 0x04
+                    0002     15 	.LEFT		= 0x02
+                    0001     16 	.RIGHT		= 0x01
+                             17 
+                    00A0     18 	.SCREENWIDTH	= 0xA0
+                    0090     19 	.SCREENHEIGHT	= 0x90
+                    0007     20 	.MINWNDPOSX	= 0x07
+                    0000     21 	.MINWNDPOSY	= 0x00
+                    00A6     22 	.MAXWNDPOSX	= 0xA6
+                    008F     23 	.MAXWNDPOSY	= 0x8F
+                             24 
+                    0001     25 	.VBL_IFLAG	= 0x01
+                    0002     26 	.LCD_IFLAG	= 0x02
+                    0004     27 	.TIM_IFLAG	= 0x04
+                    0008     28 	.SIO_IFLAG	= 0x08
+                    0010     29 	.JOY_IFLAG	= 0x10
+                             30  
+                    0000     31 	.P1		= 0x00	; Joystick: 1.1.P15.P14.P13.P12.P11.P10
+                    0001     32 	.SB		= 0x01	; Serial IO data buffer
+                    0002     33 	.SC		= 0x02	; Serial IO control register
+                    0004     34 	.DIV		= 0x04	; Divider register
+                    0005     35 	.TIMA		= 0x05	; Timer counter
+                    0006     36 	.TMA		= 0x06	; Timer modulo
+                    0007     37 	.TAC		= 0x07	; Timer control
+                    000F     38 	.IF		= 0x0F	; Interrupt flags: 0.0.0.JST.SIO.TIM.LCD.VBL
+                    0010     39 	.NR10		= 0x10	; Sound register
+                    0011     40 	.NR11		= 0x11	; Sound register
+                    0012     41 	.NR12		= 0x12	; Sound register
+                    0013     42 	.NR13		= 0x13	; Sound register
+                    0014     43 	.NR14		= 0x14	; Sound register
+                    0016     44 	.NR21		= 0x16	; Sound register
+                    0017     45 	.NR22		= 0x17	; Sound register
+                    0018     46 	.NR23		= 0x18	; Sound register
+                    0019     47 	.NR24		= 0x19	; Sound register
+                    001A     48 	.NR30		= 0x1A	; Sound register
+                    001B     49 	.NR31		= 0x1B	; Sound register
+                    001C     50 	.NR32		= 0x1C	; Sound register
+                    001D     51 	.NR33		= 0x1D	; Sound register
+                    001E     52 	.NR34		= 0x1E	; Sound register
+                    0020     53 	.NR41		= 0x20	; Sound register
+                    0021     54 	.NR42		= 0x21	; Sound register
+                    0022     55 	.NR43		= 0x22	; Sound register
+                    0023     56 	.NR44		= 0x23	; Sound register
+                    0024     57 	.NR50		= 0x24	; Sound register
+                    0025     58 	.NR51		= 0x25	; Sound register
+                    0026     59 	.NR52		= 0x26	; Sound register
+                    0040     60 	.LCDC		= 0x40	; LCD control
+                    0041     61 	.STAT		= 0x41	; LCD status
+                    0042     62 	.SCY		= 0x42	; Scroll Y
+                    0043     63 	.SCX		= 0x43	; Scroll X
+                    0044     64 	.LY		= 0x44	; LCDC Y-coordinate
+                    0045     65 	.LYC		= 0x45	; LY compare
+                    0046     66 	.DMA		= 0x46	; DMA transfer
+                    0047     67 	.BGP		= 0x47	; BG palette data
+                    0048     68 	.OBP0		= 0x48	; OBJ palette 0 data
+                    0049     69 	.OBP1		= 0x49	; OBJ palette 1 data
+                    004A     70 	.WY		= 0x4A	; Window Y coordinate
+                    004B     71 	.WX		= 0x4B	; Window X coordinate
+                    004D     72 	.KEY1		= 0x4D	; CPU speed
+                    004F     73 	.VBK		= 0x4F	; VRAM bank
+                    0051     74 	.HDMA1		= 0x51	; DMA control 1
+                    0052     75 	.HDMA2		= 0x52	; DMA control 2
+                    0053     76 	.HDMA3		= 0x53	; DMA control 3
+                    0054     77 	.HDMA4		= 0x54	; DMA control 4
+                    0055     78 	.HDMA5		= 0x55	; DMA control 5
+                    0056     79 	.RP		= 0x56	; IR port
+                    0068     80 	.BCPS		= 0x68	; BG color palette specification
+                    0069     81 	.BCPD		= 0x69	; BG color palette data
+                    006A     82 	.OCPS		= 0x6A	; OBJ color palette specification
+                    006B     83 	.OCPD		= 0x6B	; OBJ color palette data
+                    0070     84 	.SVBK		= 0x70	; WRAM bank
+                    00FF     85 	.IE		= 0xFF	; Interrupt enable
+                             86 
+                    0001     87 	.G_MODE		= 0x01	; Graphic mode
+                    0002     88 	.T_MODE		= 0x02	; Text mode (bit 2)
+                    0002     89 	.T_MODE_OUT	= 0x02	; Text mode output only
+                    0003     90 	.T_MODE_INOUT	= 0x03	; Text mode with input
+                    0004     91 	.M_NO_SCROLL	= 0x04	; Disables scrolling of the screen in text mode
+                    0008     92 	.M_NO_INTERP	= 0x08	; Disables special character interpretation
+                             93 
+                             94 	
+                             95 	;; Status codes for IO
+                    0000     96 	.IO_IDLE	= 0x00
+                    0001     97 	.IO_SENDING	= 0x01
+                    0002     98 	.IO_RECEIVING	= 0x02
+                    0004     99 	.IO_ERROR	= 0x04
+                            100 
+                            101 	;; Type of IO data
+                    0066    102 	.DT_IDLE	= 0x66
+                    0055    103 	.DT_RECEIVING	= 0x55
+                            104 
+                            105 	;; Table of routines for modes
+                            106 	;.MODE_TABLE	= 0x01E0
+                    01E2    107     .MODE_TABLE	= 0x01E2
+                            108     
+                            109 	;; C related
+                            110 	;; Overheap of a banked call.  Used for parameters
+                            111 	;;  = ret + real ret + bank
+                            112 
+                    0001    113 	.if .NEAR_CALLS
+                    0002    114 	.BANKOV		= 2
+                            115 	.else
+                            116 	.BANKOV		= 6
+                            117 	.endif
+                            118 	
+                            119 	.globl	banked_call
+                            120 	.globl	banked_ret
+                            121 	
+                            122 	;; Global variables
+                            123 	.globl	.mode
+                            124 	.globl	__io_out
+                            125 	.globl	__io_in
+                            126 	.globl	__io_status
+                            127 
+                            128 	;; Global routines
+                            129 	.globl	.display_off
+                            130 	.globl	.wait_vbl_done
+                            131 
+                            132 	;; Interrupt routines 
+                            133 	.globl	.add_VBL
+                            134 	.globl	.add_LCD
+                            135 	.globl	.add_TIM
+                            136 	.globl	.add_SIO
+                            137 	.globl	.add_JOY
+                            138 
+                            139 	;; Symbols defined at link time
+                            140 	.globl	.STACK
+                            141 	.globl	.OAM
+                            142 	.globl	.refresh_OAM
+                            143 
+                            144 	;; Main user routine	
+                            145 	.globl	_main
+                              2 
+                              3 	;; BANKED:	checked
+                              4 	.area	_BASE
+                              5 
+   0000                       6 _move_win::
+   0000 F8 02                 7 	LDA	HL,2(SP)	; Skip return address
+   0002 2A                    8 	LD	A,(HL+)
+   0003 E0 4B                 9 	LDH	(.WX),A
+   0005 2A                   10 	LD	A,(HL+)
+   0006 E0 4A                11 	LDH	(.WY),A
+   0008 C9                   12 	RET
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+    .A                                                          =  0010 
+    .B                                                          =  0020 
+    .BANKOV                                                     =  0002 
+    .BCPD                                                       =  0069 
+    .BCPS                                                       =  0068 
+    .BGP                                                        =  0047 
+    .DIV                                                        =  0004 
+    .DMA                                                        =  0046 
+    .DOWN                                                       =  0008 
+    .DT_IDLE                                                    =  0066 
+    .DT_RECEIVING                                               =  0055 
+    .G_MODE                                                     =  0001 
+    .HDMA1                                                      =  0051 
+    .HDMA2                                                      =  0052 
+    .HDMA3                                                      =  0053 
+    .HDMA4                                                      =  0054 
+    .HDMA5                                                      =  0055 
+    .IE                                                         =  00FF 
+    .IF                                                         =  000F 
+    .IO_ERROR                                                   =  0004 
+    .IO_IDLE                                                    =  0000 
+    .IO_RECEIVING                                               =  0002 
+    .IO_SENDING                                                 =  0001 
+    .JOY_IFLAG                                                  =  0010 
+    .KEY1                                                       =  004D 
+    .LCDC                                                       =  0040 
+    .LCD_IFLAG                                                  =  0002 
+    .LEFT                                                       =  0002 
+    .LY                                                         =  0044 
+    .LYC                                                        =  0045 
+    .MAXCURSPOSX                                                =  0013 
+    .MAXCURSPOSY                                                =  0011 
+    .MAXWNDPOSX                                                 =  00A6 
+    .MAXWNDPOSY                                                 =  008F 
+    .MINWNDPOSX                                                 =  0007 
+    .MINWNDPOSY                                                 =  0000 
+    .MODE_TABLE                                                 =  01E2 
+    .M_NO_INTERP                                                =  0008 
+    .M_NO_SCROLL                                                =  0004 
+    .NEAR_CALLS                                                 =  0001 
+    .NR10                                                       =  0010 
+    .NR11                                                       =  0011 
+    .NR12                                                       =  0012 
+    .NR13                                                       =  0013 
+    .NR14                                                       =  0014 
+    .NR21                                                       =  0016 
+    .NR22                                                       =  0017 
+    .NR23                                                       =  0018 
+    .NR24                                                       =  0019 
+    .NR30                                                       =  001A 
+    .NR31                                                       =  001B 
+    .NR32                                                       =  001C 
+    .NR33                                                       =  001D 
+    .NR34                                                       =  001E 
+    .NR41                                                       =  0020 
+    .NR42                                                       =  0021 
+    .NR43                                                       =  0022 
+    .NR44                                                       =  0023 
+    .NR50                                                       =  0024 
+    .NR51                                                       =  0025 
+    .NR52                                                       =  0026 
+    .OAM                                                           **** GX
+    .OBP0                                                       =  0048 
+    .OBP1                                                       =  0049 
+    .OCPD                                                       =  006B 
+    .OCPS                                                       =  006A 
+    .P1                                                         =  0000 
+    .RIGHT                                                      =  0001 
+    .RP                                                         =  0056 
+    .SB                                                         =  0001 
+    .SC                                                         =  0002 
+    .SCREENHEIGHT                                               =  0090 
+    .SCREENWIDTH                                                =  00A0 
+    .SCX                                                        =  0043 
+    .SCY                                                        =  0042 
+    .SELECT                                                     =  0040 
+    .SIO_IFLAG                                                  =  0008 
+    .STACK                                                         **** GX
+    .START                                                      =  0080 
+    .STAT                                                       =  0041 
+    .SVBK                                                       =  0070 
+    .TAC                                                        =  0007 
+    .TIMA                                                       =  0005 
+    .TIM_IFLAG                                                  =  0004 
+    .TMA                                                        =  0006 
+    .T_MODE                                                     =  0002 
+    .T_MODE_INOUT                                               =  0003 
+    .T_MODE_OUT                                                 =  0002 
+    .UP                                                         =  0004 
+    .VBK                                                        =  004F 
+    .VBL_IFLAG                                                  =  0001 
+    .WX                                                         =  004B 
+    .WY                                                         =  004A 
+    .add_JOY                                                       **** GX
+    .add_LCD                                                       **** GX
+    .add_SIO                                                       **** GX
+    .add_TIM                                                       **** GX
+    .add_VBL                                                       **** GX
+    .display_off                                                   **** GX
+    .mode                                                          **** GX
+    .refresh_OAM                                                   **** GX
+    .wait_vbl_done                                                 **** GX
+    __RGBDS__                                                   =  0000 
+    __io_in                                                        **** GX
+    __io_out                                                       **** GX
+    __io_status                                                    **** GX
+    _main                                                          **** GX
+  1 _move_win                                                      0000 GR
+    banked_call                                                    **** GX
+    banked_ret                                                     **** GX
+
+ASxxxx Assembler V01.75 + SDCC mods  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                                                          size    0   flags 0
+   1 _BASE                                                          size    9   flags 0

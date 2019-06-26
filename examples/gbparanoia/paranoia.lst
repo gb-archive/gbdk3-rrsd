@@ -1,0 +1,405 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 2.9.0 #5416 (Apr  7 2010) (MINGW32)
+                              4 ; This file was generated Wed Dec 20 16:20:15 2017
+                              5 ;--------------------------------------------------------
+                              6 	.module paranoia
+                              7 	.optsdcc -mgbz80
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _UfNGrad
+                             13 	.globl _SqRWrng
+                             14 	.globl _IEEE
+                             15 	.globl _Anomaly
+                             16 	.globl _Monot
+                             17 	.globl _NotMonot
+                             18 	.globl _Done
+                             19 	.globl _Break
+                             20 	.globl _RSqrt
+                             21 	.globl _RAddSub
+                             22 	.globl _RDiv
+                             23 	.globl _RMult
+                             24 	.globl _GAddSub
+                             25 	.globl _GDiv
+                             26 	.globl _GMult
+                             27 	.globl _N1
+                             28 	.globl _N
+                             29 	.globl _M
+                             30 	.globl _PageNo
+                             31 	.globl _Milestone
+                             32 	.globl _fpecount
+                             33 	.globl _ErrCnt
+                             34 	.globl _Z9
+                             35 	.globl _Z2
+                             36 	.globl _Z1
+                             37 	.globl _PseudoZero
+                             38 	.globl _Z
+                             39 	.globl _Random2
+                             40 	.globl _Y2
+                             41 	.globl _Y1
+                             42 	.globl _Y
+                             43 	.globl _Random1
+                             44 	.globl _X8
+                             45 	.globl _X2
+                             46 	.globl _X1
+                             47 	.globl _X
+                             48 	.globl _W
+                             49 	.globl _V9
+                             50 	.globl _V0
+                             51 	.globl _V
+                             52 	.globl _U2
+                             53 	.globl _U1
+                             54 	.globl _UfThold
+                             55 	.globl _OneUlp
+                             56 	.globl _S
+                             57 	.globl _Underflow
+                             58 	.globl _T
+                             59 	.globl _Random9
+                             60 	.globl _R
+                             61 	.globl _Q9
+                             62 	.globl _Q
+                             63 	.globl _Precision
+                             64 	.globl _MyZero
+                             65 	.globl _J
+                             66 	.globl _StickyBit
+                             67 	.globl _I
+                             68 	.globl _HInvrse
+                             69 	.globl _H
+                             70 	.globl _F9
+                             71 	.globl _F6
+                             72 	.globl _Third
+                             73 	.globl _E9
+                             74 	.globl _MaxSqEr
+                             75 	.globl _SqEr
+                             76 	.globl _MinSqEr
+                             77 	.globl _E3
+                             78 	.globl _Exp2
+                             79 	.globl _E1
+                             80 	.globl _E0
+                             81 	.globl _FourD
+                             82 	.globl _D
+                             83 	.globl _CInvrse
+                             84 	.globl _C
+                             85 	.globl _A1
+                             86 	.globl _AInvrse
+                             87 	.globl _ch
+                             88 	.globl _Indx
+                             89 	.globl _BMinusU2
+                             90 	.globl _RadixD2
+                             91 	.globl _BInvrse
+                             92 	.globl _Radix
+                             93 	.globl _sigsave
+                             94 	.globl _ovfl_buf
+                             95 	.globl _NoTrials
+                             96 	.globl _OneAndHalf
+                             97 	.globl _MinusOne
+                             98 	.globl _TwoForty
+                             99 	.globl _ThirtyTwo
+                            100 	.globl _TwentySeven
+                            101 	.globl _Nine
+                            102 	.globl _Eight
+                            103 	.globl _Five
+                            104 	.globl _Four
+                            105 	.globl _Three
+                            106 	.globl _Two
+                            107 	.globl _One
+                            108 	.globl _Half
+                            109 	.globl _Zero
+                            110 	.globl _sigfpe
+                            111 ;--------------------------------------------------------
+                            112 ;  ram data
+                            113 ;--------------------------------------------------------
+                            114 	.area _DATA
+   0000                     115 _ovfl_buf::
+   0000                     116 	.ds 4
+   0004                     117 _sigsave::
+   0004                     118 	.ds 2
+   0006                     119 _Radix::
+   0006                     120 	.ds 4
+   000A                     121 _BInvrse::
+   000A                     122 	.ds 4
+   000E                     123 _RadixD2::
+   000E                     124 	.ds 4
+   0012                     125 _BMinusU2::
+   0012                     126 	.ds 4
+   0016                     127 _Indx::
+   0016                     128 	.ds 2
+   0018                     129 _ch::
+   0018                     130 	.ds 8
+   0020                     131 _AInvrse::
+   0020                     132 	.ds 4
+   0024                     133 _A1::
+   0024                     134 	.ds 4
+   0028                     135 _C::
+   0028                     136 	.ds 4
+   002C                     137 _CInvrse::
+   002C                     138 	.ds 4
+   0030                     139 _D::
+   0030                     140 	.ds 4
+   0034                     141 _FourD::
+   0034                     142 	.ds 4
+   0038                     143 _E0::
+   0038                     144 	.ds 4
+   003C                     145 _E1::
+   003C                     146 	.ds 4
+   0040                     147 _Exp2::
+   0040                     148 	.ds 4
+   0044                     149 _E3::
+   0044                     150 	.ds 4
+   0048                     151 _MinSqEr::
+   0048                     152 	.ds 4
+   004C                     153 _SqEr::
+   004C                     154 	.ds 4
+   0050                     155 _MaxSqEr::
+   0050                     156 	.ds 4
+   0054                     157 _E9::
+   0054                     158 	.ds 4
+   0058                     159 _Third::
+   0058                     160 	.ds 4
+   005C                     161 _F6::
+   005C                     162 	.ds 4
+   0060                     163 _F9::
+   0060                     164 	.ds 4
+   0064                     165 _H::
+   0064                     166 	.ds 4
+   0068                     167 _HInvrse::
+   0068                     168 	.ds 4
+   006C                     169 _I::
+   006C                     170 	.ds 2
+   006E                     171 _StickyBit::
+   006E                     172 	.ds 4
+   0072                     173 _J::
+   0072                     174 	.ds 4
+   0076                     175 _MyZero::
+   0076                     176 	.ds 4
+   007A                     177 _Precision::
+   007A                     178 	.ds 4
+   007E                     179 _Q::
+   007E                     180 	.ds 4
+   0082                     181 _Q9::
+   0082                     182 	.ds 4
+   0086                     183 _R::
+   0086                     184 	.ds 4
+   008A                     185 _Random9::
+   008A                     186 	.ds 4
+   008E                     187 _T::
+   008E                     188 	.ds 4
+   0092                     189 _Underflow::
+   0092                     190 	.ds 4
+   0096                     191 _S::
+   0096                     192 	.ds 4
+   009A                     193 _OneUlp::
+   009A                     194 	.ds 4
+   009E                     195 _UfThold::
+   009E                     196 	.ds 4
+   00A2                     197 _U1::
+   00A2                     198 	.ds 4
+   00A6                     199 _U2::
+   00A6                     200 	.ds 4
+   00AA                     201 _V::
+   00AA                     202 	.ds 4
+   00AE                     203 _V0::
+   00AE                     204 	.ds 4
+   00B2                     205 _V9::
+   00B2                     206 	.ds 4
+   00B6                     207 _W::
+   00B6                     208 	.ds 4
+   00BA                     209 _X::
+   00BA                     210 	.ds 4
+   00BE                     211 _X1::
+   00BE                     212 	.ds 4
+   00C2                     213 _X2::
+   00C2                     214 	.ds 4
+   00C6                     215 _X8::
+   00C6                     216 	.ds 4
+   00CA                     217 _Random1::
+   00CA                     218 	.ds 4
+   00CE                     219 _Y::
+   00CE                     220 	.ds 4
+   00D2                     221 _Y1::
+   00D2                     222 	.ds 4
+   00D6                     223 _Y2::
+   00D6                     224 	.ds 4
+   00DA                     225 _Random2::
+   00DA                     226 	.ds 4
+   00DE                     227 _Z::
+   00DE                     228 	.ds 4
+   00E2                     229 _PseudoZero::
+   00E2                     230 	.ds 4
+   00E6                     231 _Z1::
+   00E6                     232 	.ds 4
+   00EA                     233 _Z2::
+   00EA                     234 	.ds 4
+   00EE                     235 _Z9::
+   00EE                     236 	.ds 4
+   00F2                     237 _ErrCnt::
+   00F2                     238 	.ds 8
+   00FA                     239 _fpecount::
+   00FA                     240 	.ds 2
+   00FC                     241 _Milestone::
+   00FC                     242 	.ds 2
+   00FE                     243 _PageNo::
+   00FE                     244 	.ds 2
+   0100                     245 _M::
+   0100                     246 	.ds 2
+   0102                     247 _N::
+   0102                     248 	.ds 2
+   0104                     249 _N1::
+   0104                     250 	.ds 2
+   0106                     251 _GMult::
+   0106                     252 	.ds 2
+   0108                     253 _GDiv::
+   0108                     254 	.ds 2
+   010A                     255 _GAddSub::
+   010A                     256 	.ds 2
+   010C                     257 _RMult::
+   010C                     258 	.ds 2
+   010E                     259 _RDiv::
+   010E                     260 	.ds 2
+   0110                     261 _RAddSub::
+   0110                     262 	.ds 2
+   0112                     263 _RSqrt::
+   0112                     264 	.ds 2
+   0114                     265 _Break::
+   0114                     266 	.ds 2
+   0116                     267 _Done::
+   0116                     268 	.ds 2
+   0118                     269 _NotMonot::
+   0118                     270 	.ds 2
+   011A                     271 _Monot::
+   011A                     272 	.ds 2
+   011C                     273 _Anomaly::
+   011C                     274 	.ds 2
+   011E                     275 _IEEE::
+   011E                     276 	.ds 2
+   0120                     277 _SqRWrng::
+   0120                     278 	.ds 2
+   0122                     279 _UfNGrad::
+   0122                     280 	.ds 2
+                            281 ;--------------------------------------------------------
+                            282 ; overlayable items in  ram 
+                            283 ;--------------------------------------------------------
+                            284 	.area _OVERLAY
+                            285 ;--------------------------------------------------------
+                            286 ; external initialized ram data
+                            287 ;--------------------------------------------------------
+                            288 ;--------------------------------------------------------
+                            289 ; global & static initialisations
+                            290 ;--------------------------------------------------------
+                            291 	.area _HOME
+                            292 	.area _GSINIT
+                            293 	.area _GSFINAL
+                            294 	.area _GSINIT
+                            295 ;paranoia.c:51: int ErrCnt[4] = {0,0,0,0};
+   0000 21rF2s00            296 	ld	hl,#_ErrCnt
+   0003 CDr00s00            297 	call	__initrleblock
+   0006 F8 00               298 	.db	#-8,#0x00
+   0008 00                  299 	.db	0
+                            300 ;paranoia.c:54: int PageNo = 1;
+   0009 21rFEs00            301 	ld	hl,#_PageNo
+   000C 36 01               302 	ld	(hl),#0x01
+   000E 21rFFs00            303 	ld	hl,#_PageNo + 1
+   0011 36 00               304 	ld	(hl),#0x00
+                            305 ;--------------------------------------------------------
+                            306 ; Home
+                            307 ;--------------------------------------------------------
+                            308 	.area _HOME
+                            309 	.area _HOME
+                            310 ;--------------------------------------------------------
+                            311 ; code
+                            312 ;--------------------------------------------------------
+                            313 	.area _CODE
+                            314 ;paranoia.c:66: sigfpe(INT x)
+                            315 ;	---------------------------------
+                            316 ; Function sigfpe
+                            317 ; ---------------------------------
+   0000                     318 _sigfpe:
+                            319 	
+                            320 ;paranoia.c:68: fpecount++;
+   0000 21rFAs00            321 	ld	hl,#_fpecount
+   0003 34                  322 	inc	(hl)
+   0004 20 04               323 	jr	NZ,00106$
+   0006 21rFBs00            324 	ld	hl,#_fpecount + 1
+   0009 34                  325 	inc	(hl)
+   000A                     326 00106$:
+                            327 ;paranoia.c:69: printf("\n* * * FLOATING-POINT ERROR %d * * *\n", x);
+   000A F8 02               328 	lda	hl,2(sp)
+   000C 2A                  329 	ld	a,(hl+)
+   000D 66                  330 	ld	h,(hl)
+   000E 6F                  331 	ld	l,a
+   000F E5                  332 	push	hl
+   0010 21r7Fs00            333 	ld	hl,#__str_0
+   0013 E5                  334 	push	hl
+   0014 CDr00s00            335 	call	_printf
+   0017 E8 04               336 	lda	sp,4(sp)
+                            337 ;paranoia.c:71: if (sigsave) {
+   0019 21r04s00            338 	ld	hl,#_sigsave
+   001C 7E                  339 	ld	a,(hl)
+   001D 21r05s00            340 	ld	hl,#_sigsave + 1
+   0020 B6                  341 	or	a,(hl)
+   0021 CAr3Bs00            342 	jp	Z,00102$
+                            343 ;paranoia.c:75: sigsave = 0;
+   0024 21r04s00            344 	ld	hl,#_sigsave
+   0027 36 00               345 	ld	(hl),#0x00
+   0029 21r05s00            346 	ld	hl,#_sigsave + 1
+   002C 36 00               347 	ld	(hl),#0x00
+                            348 ;paranoia.c:76: longjmp(ovfl_buf, 1);
+   002E 21 01 00            349 	ld	hl,#0x0001
+   0031 E5                  350 	push	hl
+   0032 21r00s00            351 	ld	hl,#_ovfl_buf
+   0035 E5                  352 	push	hl
+   0036 CDr00s00            353 	call	_longjmp
+   0039 E8 04               354 	lda	sp,4(sp)
+   003B                     355 00102$:
+                            356 ;paranoia.c:78: exit(1);
+   003B 21 01 00            357 	ld	hl,#0x0001
+   003E E5                  358 	push	hl
+   003F CDr00s00            359 	call	_exit
+   0042 E8 02               360 	lda	sp,2(sp)
+   0044                     361 00103$:
+                            362 	
+   0044 C9                  363 ret
+   0045                     364 _Zero:
+   0045 00 00 00 00         365 	.byte #0x00,#0x00,#0x00,#0x00
+   0049                     366 _Half:
+   0049 00 00 00 3F         367 	.byte #0x00,#0x00,#0x00,#0x3F
+   004D                     368 _One:
+   004D 00 00 80 3F         369 	.byte #0x00,#0x00,#0x80,#0x3F
+   0051                     370 _Two:
+   0051 00 00 00 40         371 	.byte #0x00,#0x00,#0x00,#0x40
+   0055                     372 _Three:
+   0055 00 00 40 40         373 	.byte #0x00,#0x00,#0x40,#0x40
+   0059                     374 _Four:
+   0059 00 00 80 40         375 	.byte #0x00,#0x00,#0x80,#0x40
+   005D                     376 _Five:
+   005D 00 00 A0 40         377 	.byte #0x00,#0x00,#0xA0,#0x40
+   0061                     378 _Eight:
+   0061 00 00 00 41         379 	.byte #0x00,#0x00,#0x00,#0x41
+   0065                     380 _Nine:
+   0065 00 00 10 41         381 	.byte #0x00,#0x00,#0x10,#0x41
+   0069                     382 _TwentySeven:
+   0069 00 00 D8 41         383 	.byte #0x00,#0x00,#0xD8,#0x41
+   006D                     384 _ThirtyTwo:
+   006D 00 00 00 42         385 	.byte #0x00,#0x00,#0x00,#0x42
+   0071                     386 _TwoForty:
+   0071 00 00 70 43         387 	.byte #0x00,#0x00,#0x70,#0x43
+   0075                     388 _MinusOne:
+   0075 00 00 80 BF         389 	.byte #0x00,#0x00,#0x80,#0xBF
+   0079                     390 _OneAndHalf:
+   0079 00 00 C0 3F         391 	.byte #0x00,#0x00,#0xC0,#0x3F
+   007D                     392 _NoTrials:
+   007D 14 00               393 	.dw #0x0014
+   007F                     394 __str_0:
+   007F 0A                  395 	.db 0x0A
+   0080 2A 20 2A 20 2A 20   396 	.ascii "* * * FLOATING-POINT ERROR %d * * *"
+        46 4C 4F 41 54 49
+        4E 47 2D 50 4F 49
+        4E 54 20 45 52 52
+        4F 52 20 25 64 20
+        2A 20 2A 20 2A
+   00A3 0A                  397 	.db 0x0A
+   00A4 00                  398 	.db 0x00
+                            399 	.area _CODE
+                            400 	.area _CABS

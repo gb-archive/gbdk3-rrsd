@@ -1,0 +1,135 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 2.9.0 #5416 (Apr  7 2010) (MINGW32)
+                              4 ; This file was generated Sun Dec 17 10:44:43 2017
+                              5 ;--------------------------------------------------------
+                              6 	.module gprintn
+                              7 	.optsdcc -mgbz80
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _gprintn
+                             13 ;--------------------------------------------------------
+                             14 ;  ram data
+                             15 ;--------------------------------------------------------
+                             16 	.area _DATA
+                             17 ;--------------------------------------------------------
+                             18 ; overlayable items in  ram 
+                             19 ;--------------------------------------------------------
+                             20 	.area _OVERLAY
+                             21 ;--------------------------------------------------------
+                             22 ; external initialized ram data
+                             23 ;--------------------------------------------------------
+                             24 ;--------------------------------------------------------
+                             25 ; global & static initialisations
+                             26 ;--------------------------------------------------------
+                             27 	.area _HOME
+                             28 	.area _GSINIT
+                             29 	.area _GSFINAL
+                             30 	.area _GSINIT
+                             31 ;--------------------------------------------------------
+                             32 ; Home
+                             33 ;--------------------------------------------------------
+                             34 	.area _HOME
+                             35 	.area _HOME
+                             36 ;--------------------------------------------------------
+                             37 ; code
+                             38 ;--------------------------------------------------------
+                             39 	.area _CODE
+                             40 ;gprintn.c:7: void gprintn(BYTE number, BYTE radix, BYTE signed_value)
+                             41 ;	---------------------------------
+                             42 ; Function gprintn
+                             43 ; ---------------------------------
+   0000                      44 _gprintn:
+                             45 	
+   0000 3B                   46 	dec	sp
+                             47 ;gprintn.c:11: if(number < 0 && signed_value) {
+   0001 F8 03                48 	lda	hl,3(sp)
+   0003 7E                   49 	ld	a,(hl)
+   0004 CB 7F                50 	bit	7,a
+   0006 CAr20s00             51 	jp	Z,00102$
+   0009 AF                   52 	xor	a,a
+   000A 23                   53 	inc	hl
+   000B 23                   54 	inc	hl
+   000C B6                   55 	or	a,(hl)
+   000D CAr20s00             56 	jp	Z,00102$
+                             57 ;gprintn.c:12: wrtchr('-');
+   0010 3E 2D                58 	ld	a,#0x2D
+   0012 F5                   59 	push	af
+   0013 33                   60 	inc	sp
+   0014 CDr00s00             61 	call	_wrtchr
+   0017 E8 01                62 	lda	sp,1(sp)
+                             63 ;gprintn.c:13: number = -number;
+   0019 AF                   64 	xor	a,a
+   001A F8 03                65 	lda	hl,3(sp)
+   001C 3E 00                66 	ld	a,#0x00
+   001E 9E                   67 	sbc	a,(hl)
+   001F 77                   68 	ld	(hl),a
+   0020                      69 00102$:
+                             70 ;gprintn.c:15: if((i = (UBYTE)number / (UBYTE)radix) != 0)
+   0020 F8 03                71 	lda	hl,3(sp)
+   0022 4E                   72 	ld	c,(hl)
+   0023 23                   73 	inc	hl
+   0024 46                   74 	ld	b,(hl)
+   0025 C5                   75 	push	bc
+   0026 C5                   76 	push	bc
+   0027 33                   77 	inc	sp
+   0028 79                   78 	ld	a,c
+   0029 F5                   79 	push	af
+   002A 33                   80 	inc	sp
+   002B CDr00s00             81 	call	__divuchar_rrx_s
+   002E E8 02                82 	lda	sp,2(sp)
+   0030 F8 02                83 	lda	hl,2(sp)
+   0032 73                   84 	ld	(hl),e
+   0033 C1                   85 	pop	bc
+   0034 F8 00                86 	lda	hl,0(sp)
+   0036 4E                   87 	ld	c,(hl)
+   0037 AF                   88 	xor	a,a
+   0038 B6                   89 	or	a,(hl)
+   0039 CAr4Cs00             90 	jp	Z,00105$
+                             91 ;gprintn.c:16: gprintn(i, radix, UNSIGNED);
+   003C C5                   92 	push	bc
+   003D 3E 00                93 	ld	a,#0x00
+   003F F5                   94 	push	af
+   0040 33                   95 	inc	sp
+   0041 C5                   96 	push	bc
+   0042 33                   97 	inc	sp
+   0043 79                   98 	ld	a,c
+   0044 F5                   99 	push	af
+   0045 33                  100 	inc	sp
+   0046 CDr00s00            101 	call	_gprintn
+   0049 E8 03               102 	lda	sp,3(sp)
+   004B C1                  103 	pop	bc
+   004C                     104 00105$:
+                            105 ;gprintn.c:17: wrtchr(digits[(UBYTE)number % (UBYTE)radix]);
+   004C F8 03               106 	lda	hl,3(sp)
+   004E 4E                  107 	ld	c,(hl)
+   004F C5                  108 	push	bc
+   0050 33                  109 	inc	sp
+   0051 79                  110 	ld	a,c
+   0052 F5                  111 	push	af
+   0053 33                  112 	inc	sp
+   0054 CDr00s00            113 	call	__moduchar_rrx_s
+   0057 E8 02               114 	lda	sp,2(sp)
+   0059 4B                  115 	ld	c,e
+   005A 21r00s00            116 	ld	hl,#_digits
+   005D 7E                  117 	ld	a,(hl)
+   005E 81                  118 	add	a,c
+   005F 21r01s00            119 	ld	hl,#_digits + 1
+   0062 4F                  120 	ld	c,a
+   0063 21r01s00            121 	ld	hl,#_digits + 1
+   0066 7E                  122 	ld	a,(hl)
+   0067 CE 00               123 	adc	a,#0x00
+   0069 47                  124 	ld	b,a
+   006A 0A                  125 	ld	a,(bc)
+   006B 4F                  126 	ld	c,a
+   006C F5                  127 	push	af
+   006D 33                  128 	inc	sp
+   006E CDr00s00            129 	call	_wrtchr
+   0071 E8 01               130 	lda	sp,1(sp)
+   0073                     131 00106$:
+   0073 E8 01               132 	lda	sp,1(sp)
+   0075 C9                  133 ret
+                            134 	.area _CODE
+                            135 	.area _CABS

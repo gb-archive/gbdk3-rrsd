@@ -1,0 +1,324 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 2.9.0 #5416 (Apr  7 2010) (MINGW32)
+                              4 ; This file was generated Tue Dec 19 17:02:53 2017
+                              5 ;--------------------------------------------------------
+                              6 	.module gprintf
+                              7 	.optsdcc -mgbz80
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _gprintf
+                             13 ;--------------------------------------------------------
+                             14 ;  ram data
+                             15 ;--------------------------------------------------------
+                             16 	.area _DATA
+                             17 ;--------------------------------------------------------
+                             18 ; overlayable items in  ram 
+                             19 ;--------------------------------------------------------
+                             20 	.area _OVERLAY
+                             21 ;--------------------------------------------------------
+                             22 ; external initialized ram data
+                             23 ;--------------------------------------------------------
+                             24 ;--------------------------------------------------------
+                             25 ; global & static initialisations
+                             26 ;--------------------------------------------------------
+                             27 	.area _HOME
+                             28 	.area _GSINIT
+                             29 	.area _GSFINAL
+                             30 	.area _GSINIT
+                             31 ;--------------------------------------------------------
+                             32 ; Home
+                             33 ;--------------------------------------------------------
+                             34 	.area _HOME
+                             35 	.area _HOME
+                             36 ;--------------------------------------------------------
+                             37 ; code
+                             38 ;--------------------------------------------------------
+                             39 	.area _CODE
+                             40 ;gprintf.c:4: INT8 gprintf(char *fmt, ...) // NONBANKED
+                             41 ;	---------------------------------
+                             42 ; Function gprintf
+                             43 ; ---------------------------------
+   0000                      44 _gprintf:
+   0000 E8 FB                45 	lda	sp,-5(sp)
+                             46 ;gprintf.c:7: INT8 nb = 0;
+   0002 F8 01                47 	lda	hl,1(sp)
+   0004 36 00                48 	ld	(hl),#0x00
+                             49 ;gprintf.c:9: va_start(ap, fmt);
+   0006 F8 07                50 	lda	hl,7(sp)
+   0008 4D                   51 	ld	c,l
+   0009 44                   52 	ld	b,h
+   000A 21 02 00             53 	ld	hl,#0x0002
+   000D 09                   54 	add	hl,bc
+   000E 7D                   55 	ld	a,l
+   000F 54                   56 	ld	d,h
+   0010 F8 03                57 	lda	hl,3(sp)
+   0012 22                   58 	ld	(hl+),a
+   0013 72                   59 	ld	(hl),d
+   0014 2B                   60 	dec	hl
+   0015 2B                   61 	dec	hl
+   0016 36 00                62 	ld	(hl),#0x00
+   0018                      63 00113$:
+                             64 ;gprintf.c:10: for(; *fmt; fmt++)
+   0018 F8 07                65 	lda	hl,7(sp)
+   001A 4E                   66 	ld	c,(hl)
+   001B 23                   67 	inc	hl
+   001C 46                   68 	ld	b,(hl)
+   001D 0A                   69 	ld	a,(bc)
+   001E F8 00                70 	lda	hl,0(sp)
+   0020 77                   71 	ld	(hl),a
+   0021 B7                   72 	or	a,a
+   0022 CAr41s01             73 	jp	Z,00116$
+                             74 ;gprintf.c:11: if(*fmt == '%') {
+   0025 7E                   75 	ld	a,(hl)
+   0026 D6 25                76 	sub	a,#0x25
+   0028 C2r2Ds00             77 	jp	NZ,00129$
+   002B 18 03                78 	jr	00130$
+   002D                      79 00129$:
+   002D C3r25s01             80 	jp	00111$
+   0030                      81 00130$:
+                             82 ;gprintf.c:12: switch(*++fmt) {
+   0030 21 01 00             83 	ld	hl,#0x0001
+   0033 09                   84 	add	hl,bc
+   0034 7D                   85 	ld	a,l
+   0035 54                   86 	ld	d,h
+   0036 F8 07                87 	lda	hl,7(sp)
+   0038 22                   88 	ld	(hl+),a
+   0039 72                   89 	ld	(hl),d
+   003A 2B                   90 	dec	hl
+   003B 4E                   91 	ld	c,(hl)
+   003C 23                   92 	inc	hl
+   003D 46                   93 	ld	b,(hl)
+   003E 0A                   94 	ld	a,(bc)
+   003F 4F                   95 	ld	c,a
+   0040 D6 25                96 	sub	a,#0x25
+   0042 CAr0Cs01             97 	jp	Z,00107$
+   0045                      98 00131$:
+   0045 79                   99 	ld	a,c
+   0046 D6 63               100 	sub	a,#0x63
+   0048 CAr6Cs00            101 	jp	Z,00101$
+   004B                     102 00132$:
+   004B 79                  103 	ld	a,c
+   004C D6 64               104 	sub	a,#0x64
+   004E CAr83s00            105 	jp	Z,00102$
+   0051                     106 00133$:
+   0051 79                  107 	ld	a,c
+   0052 D6 6F               108 	sub	a,#0x6F
+   0054 CArB9s00            109 	jp	Z,00104$
+   0057                     110 00134$:
+   0057 79                  111 	ld	a,c
+   0058 D6 73               112 	sub	a,#0x73
+   005A CArEFs00            113 	jp	Z,00106$
+   005D                     114 00135$:
+   005D 79                  115 	ld	a,c
+   005E D6 75               116 	sub	a,#0x75
+   0060 CAr9Es00            117 	jp	Z,00103$
+   0063                     118 00136$:
+   0063 79                  119 	ld	a,c
+   0064 D6 78               120 	sub	a,#0x78
+   0066 CArD4s00            121 	jp	Z,00105$
+   0069                     122 00137$:
+   0069 C3r17s01            123 	jp	00108$
+                            124 ;gprintf.c:13: case 'c': {
+   006C                     125 00101$:
+                            126 ;gprintf.c:15: char c = va_arg(ap, char);
+   006C F8 03               127 	lda	hl,3(sp)
+   006E 4E                  128 	ld	c,(hl)
+   006F 23                  129 	inc	hl
+   0070 46                  130 	ld	b,(hl)
+   0071 03                  131 	inc	bc
+   0072 2B                  132 	dec	hl
+   0073 71                  133 	ld	(hl),c
+   0074 23                  134 	inc	hl
+   0075 70                  135 	ld	(hl),b
+   0076 0B                  136 	dec	bc
+   0077 0A                  137 	ld	a,(bc)
+   0078 47                  138 	ld	b,a
+                            139 ;gprintf.c:16: wrtchr(c);
+   0079 C5                  140 	push	bc
+   007A 33                  141 	inc	sp
+   007B CDr00s00            142 	call	_wrtchr
+   007E E8 01               143 	lda	sp,1(sp)
+                            144 ;gprintf.c:17: break;
+   0080 C3r1Cs01            145 	jp	00109$
+                            146 ;gprintf.c:19: case 'd': {
+   0083                     147 00102$:
+                            148 ;gprintf.c:21: INT8 b = va_arg(ap, INT8);
+   0083 F8 03               149 	lda	hl,3(sp)
+   0085 4E                  150 	ld	c,(hl)
+   0086 23                  151 	inc	hl
+   0087 46                  152 	ld	b,(hl)
+   0088 03                  153 	inc	bc
+   0089 2B                  154 	dec	hl
+   008A 71                  155 	ld	(hl),c
+   008B 23                  156 	inc	hl
+   008C 70                  157 	ld	(hl),b
+   008D 0B                  158 	dec	bc
+   008E 0A                  159 	ld	a,(bc)
+   008F 47                  160 	ld	b,a
+                            161 ;gprintf.c:22: gprintn(b, 10, SIGNED);
+   0090 21 0A 01            162 	ld	hl,#0x010A
+   0093 E5                  163 	push	hl
+   0094 C5                  164 	push	bc
+   0095 33                  165 	inc	sp
+   0096 CDr00s00            166 	call	_gprintn
+   0099 E8 03               167 	lda	sp,3(sp)
+                            168 ;gprintf.c:23: break;
+   009B C3r1Cs01            169 	jp	00109$
+                            170 ;gprintf.c:25: case 'u': {
+   009E                     171 00103$:
+                            172 ;gprintf.c:27: INT8 b = va_arg(ap, INT8);
+   009E F8 03               173 	lda	hl,3(sp)
+   00A0 4E                  174 	ld	c,(hl)
+   00A1 23                  175 	inc	hl
+   00A2 46                  176 	ld	b,(hl)
+   00A3 03                  177 	inc	bc
+   00A4 2B                  178 	dec	hl
+   00A5 71                  179 	ld	(hl),c
+   00A6 23                  180 	inc	hl
+   00A7 70                  181 	ld	(hl),b
+   00A8 0B                  182 	dec	bc
+   00A9 0A                  183 	ld	a,(bc)
+   00AA 47                  184 	ld	b,a
+                            185 ;gprintf.c:28: gprintn(b, 10, UNSIGNED);
+   00AB 21 0A 00            186 	ld	hl,#0x000A
+   00AE E5                  187 	push	hl
+   00AF C5                  188 	push	bc
+   00B0 33                  189 	inc	sp
+   00B1 CDr00s00            190 	call	_gprintn
+   00B4 E8 03               191 	lda	sp,3(sp)
+                            192 ;gprintf.c:29: break;
+   00B6 C3r1Cs01            193 	jp	00109$
+                            194 ;gprintf.c:31: case 'o': {
+   00B9                     195 00104$:
+                            196 ;gprintf.c:33: INT8 b = va_arg(ap, INT8);
+   00B9 F8 03               197 	lda	hl,3(sp)
+   00BB 4E                  198 	ld	c,(hl)
+   00BC 23                  199 	inc	hl
+   00BD 46                  200 	ld	b,(hl)
+   00BE 03                  201 	inc	bc
+   00BF 2B                  202 	dec	hl
+   00C0 71                  203 	ld	(hl),c
+   00C1 23                  204 	inc	hl
+   00C2 70                  205 	ld	(hl),b
+   00C3 0B                  206 	dec	bc
+   00C4 0A                  207 	ld	a,(bc)
+   00C5 47                  208 	ld	b,a
+                            209 ;gprintf.c:34: gprintn(b, 8, UNSIGNED);
+   00C6 21 08 00            210 	ld	hl,#0x0008
+   00C9 E5                  211 	push	hl
+   00CA C5                  212 	push	bc
+   00CB 33                  213 	inc	sp
+   00CC CDr00s00            214 	call	_gprintn
+   00CF E8 03               215 	lda	sp,3(sp)
+                            216 ;gprintf.c:35: break;
+   00D1 C3r1Cs01            217 	jp	00109$
+                            218 ;gprintf.c:37: case 'x': {
+   00D4                     219 00105$:
+                            220 ;gprintf.c:39: INT8 b = va_arg(ap, INT8);
+   00D4 F8 03               221 	lda	hl,3(sp)
+   00D6 4E                  222 	ld	c,(hl)
+   00D7 23                  223 	inc	hl
+   00D8 46                  224 	ld	b,(hl)
+   00D9 03                  225 	inc	bc
+   00DA 2B                  226 	dec	hl
+   00DB 71                  227 	ld	(hl),c
+   00DC 23                  228 	inc	hl
+   00DD 70                  229 	ld	(hl),b
+   00DE 0B                  230 	dec	bc
+   00DF 0A                  231 	ld	a,(bc)
+   00E0 47                  232 	ld	b,a
+                            233 ;gprintf.c:40: gprintn(b, 16, UNSIGNED);
+   00E1 21 10 00            234 	ld	hl,#0x0010
+   00E4 E5                  235 	push	hl
+   00E5 C5                  236 	push	bc
+   00E6 33                  237 	inc	sp
+   00E7 CDr00s00            238 	call	_gprintn
+   00EA E8 03               239 	lda	sp,3(sp)
+                            240 ;gprintf.c:41: break;
+   00EC C3r1Cs01            241 	jp	00109$
+                            242 ;gprintf.c:43: case 's': {
+   00EF                     243 00106$:
+                            244 ;gprintf.c:45: char *s = va_arg(ap, char *);
+   00EF F8 03               245 	lda	hl,3(sp)
+   00F1 4E                  246 	ld	c,(hl)
+   00F2 23                  247 	inc	hl
+   00F3 46                  248 	ld	b,(hl)
+   00F4 03                  249 	inc	bc
+   00F5 03                  250 	inc	bc
+   00F6 2B                  251 	dec	hl
+   00F7 71                  252 	ld	(hl),c
+   00F8 23                  253 	inc	hl
+   00F9 70                  254 	ld	(hl),b
+   00FA 0B                  255 	dec	bc
+   00FB 0B                  256 	dec	bc
+   00FC 59                  257 	ld	e,c
+   00FD 50                  258 	ld	d,b
+   00FE 1A                  259 	ld	a,(de)
+   00FF 4F                  260 	ld	c,a
+   0100 13                  261 	inc	de
+   0101 1A                  262 	ld	a,(de)
+   0102 47                  263 	ld	b,a
+                            264 ;gprintf.c:46: gprint(s);
+   0103 C5                  265 	push	bc
+   0104 CDr00s00            266 	call	_gprint
+   0107 E8 02               267 	lda	sp,2(sp)
+                            268 ;gprintf.c:47: break;
+   0109 C3r1Cs01            269 	jp	00109$
+                            270 ;gprintf.c:72: case '%':
+   010C                     271 00107$:
+                            272 ;gprintf.c:74: wrtchr(*fmt);
+   010C 79                  273 	ld	a,c
+   010D F5                  274 	push	af
+   010E 33                  275 	inc	sp
+   010F CDr00s00            276 	call	_wrtchr
+   0112 E8 01               277 	lda	sp,1(sp)
+                            278 ;gprintf.c:75: break;
+   0114 C3r1Cs01            279 	jp	00109$
+                            280 ;gprintf.c:76: default:
+   0117                     281 00108$:
+                            282 ;gprintf.c:77: return -1;
+   0117 1E FF               283 	ld	e,#0xFF
+   0119 C3r44s01            284 	jp	00117$
+                            285 ;gprintf.c:78: }
+   011C                     286 00109$:
+                            287 ;gprintf.c:79: nb++;
+   011C F8 02               288 	lda	hl,2(sp)
+   011E 34                  289 	inc	(hl)
+   011F 7E                  290 	ld	a,(hl)
+   0120 2B                  291 	dec	hl
+   0121 77                  292 	ld	(hl),a
+   0122 C3r2Fs01            293 	jp	00115$
+   0125                     294 00111$:
+                            295 ;gprintf.c:81: wrtchr(*fmt);
+   0125 F8 00               296 	lda	hl,0(sp)
+   0127 7E                  297 	ld	a,(hl)
+   0128 F5                  298 	push	af
+   0129 33                  299 	inc	sp
+   012A CDr00s00            300 	call	_wrtchr
+   012D E8 01               301 	lda	sp,1(sp)
+   012F                     302 00115$:
+                            303 ;gprintf.c:10: for(; *fmt; fmt++)
+   012F F8 07               304 	lda	hl,7(sp)
+   0131 4E                  305 	ld	c,(hl)
+   0132 23                  306 	inc	hl
+   0133 46                  307 	ld	b,(hl)
+   0134 21 01 00            308 	ld	hl,#0x0001
+   0137 09                  309 	add	hl,bc
+   0138 7D                  310 	ld	a,l
+   0139 54                  311 	ld	d,h
+   013A F8 07               312 	lda	hl,7(sp)
+   013C 22                  313 	ld	(hl+),a
+   013D 72                  314 	ld	(hl),d
+   013E C3r18s00            315 	jp	00113$
+   0141                     316 00116$:
+                            317 ;gprintf.c:84: return nb;
+   0141 F8 01               318 	lda	hl,1(sp)
+   0143 5E                  319 	ld	e,(hl)
+   0144                     320 00117$:
+   0144 E8 05               321 	lda	sp,5(sp)
+   0146 C9                  322 ret
+                            323 	.area _CODE
+                            324 	.area _CABS
